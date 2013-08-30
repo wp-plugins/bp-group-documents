@@ -22,10 +22,9 @@ Group members and moderators can receive email notifications at their option.
 The group administrator can decide if all members or only admins/moderators can upload documents (Since v0.5)
 User verification for Downloads: when a document is downloaded, a redirect page checks is the user is member of the group (in case of a private  or hidden groups) and only then the user can download the file.(Since v0.5)
 3 Widgets: "User's groups documents" (since v0.5) ,"Recent Uploads" , "Popular Downloads"  can be used to show activity at a glance.
+Contributions by Lena Stergatu for WP 3.3, with additional bug fixes and improvements by Keeble Smith (http://keeblesmith.com) and Anton Andreasson work for BP 1.7. Original plugin author Peter Anselmo.
 
-Contributions by Lena Stergatu for WP 3.3, with additional bug fixes and improvements by Keeble Smith (http://keeblesmith.com) and Anton Andreasson work for BP 1.7. Original plugin author Peter Anselmo
-
-PLEASE: If you have any issues or it doesn't work for you, contact Lena on http://lenasterg.wordpress.com. Reporting bugs is the only way for them to be fixed.  It doesn't help anyone to mark "broken" without asking around.  Thanks!  
+PLEASE: If you have any issues or it doesn't work for you, please report in support forum.  It doesn't help anyone to mark "broken" without asking around.  Thanks!  
 
 NOTE: For Buddypress v1.5, use the plugin's version 0.4.3.3. available in http://lenasterg.wordpress.com/2012/04/17/buddypress-group-documents-for-bp-1-5-and-wp-3-3/
 
@@ -51,7 +50,6 @@ RewriteRule ^wp\-content/blogs\.dir/1/files/group\-documents/(.*) /?get_group_do
  2. If you are a plugin developer and want to use the upload file form you can link to /group_slug/bpgroupdocuments_slug/add to access the upload document form
 
 == Screenshots ==
-Need to be made
 1. Admin settings page
 2. Documents settings page on group creation
 3. Upload document form
