@@ -11,7 +11,9 @@ BP Group Documents creates a page within each BuddyPress group to upload and any
 
 == Description ==
 Original plugin is <a href="http://wordpress.org/extend/plugins/buddypress-group-documents/">no longer supported</a> so revised.
+
 BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document. This allows members of BuddyPress groups to upload and store files and documents that are relevant to the group.
+
 Documents can be edited and deleted either by the document owner or by the group administrator.
 Categories can be used to organize documents. 
 Activity is logged in the main activity stream, and is also tied to the user and group activity streams.
@@ -21,7 +23,7 @@ The group administrator can decide if all members or only admins/moderators can 
 User verification for Downloads: when a document is downloaded, a redirect page checks is the user is member of the group (in case of a private  or hidden groups) and only then the user can download the file.(Since v0.5)
 3 Widgets: "User's groups documents" (since v0.5) ,"Recent Uploads" , "Popular Downloads"  can be used to show activity at a glance.
 
-Contributions by Lena Stergatu for WP 3.3, with additional bug fixes and improvements by <a href="http://keeblesmith.com">Keeble Smith</a> and Anton Andreasson work for BP 1.7. Original plugin author Peter Anselmo
+Contributions by Lena Stergatu for WP 3.3, with additional bug fixes and improvements by Keeble Smith (http://keeblesmith.com) and Anton Andreasson work for BP 1.7. Original plugin author Peter Anselmo
 
 PLEASE: If you have any issues or it doesn't work for you, contact Lena on http://lenasterg.wordpress.com. Reporting bugs is the only way for them to be fixed.  It doesn't help anyone to mark "broken" without asking around.  Thanks!  
 
