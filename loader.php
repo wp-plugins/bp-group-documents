@@ -3,13 +3,13 @@
 /*
   Plugin Name: BP Group Documents
   PLugin URI: http://lenasterg.wordpress.com/
-  Description: This BuddyPress component creates a document storage area within each group. Original plugin is <a href="http://wordpress.org/extend/plugins/buddypress-group-documents/">no longer supported</a> so revised by Lena Stergatu (<a href="mailto://stergatu@cti.gr">stergatu@cti.gr</a>) for WP 3.3, with additional bug fixes and improvements by <a href="http://keeblesmith.com">Keeble Smith</a>.
+  Description: BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document. 
   Version: 1.0
   Revision Date: August 28, 2013
   Requires at least: WP 3.5.1, BuddyPress 1.7
   Tested up to: WP 3.6, BuddyPress 1.8
   License:  GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
-  Author:Lena Stergatu (http://lenasterg.wordpress.com) since v. 0.4.3.3. with additional bug fixing and improvements by <a href="http://keeblesmith.com">Keeble Smith</a>. Original plugin author Peter Anselmo, Studio66.
+  Author: Lena Stergatu (http://lenasterg.wordpress.com) since v. 0.4.3.3. with additional bug fixing and improvements by <a href="http://keeblesmith.com">Keeble Smith</a>. Original plugin author Peter Anselmo, Studio66.
   Author URI:
   Network Only: true
  * @todo minor, make a deregister function, 26/4/2013 stergatu

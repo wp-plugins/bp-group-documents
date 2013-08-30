@@ -1,5 +1,5 @@
 ===BP Group Documents  ===
-Contributors: Lena Stergatu (http://lenasterg.wordpress.com) since version 0.4 with additional bug fixes by Keeble Smith Ltd (http://keeblesmith.com) and Anton Andreasson work for BP 1.7. Initial plugin author Peter Anselmo
+Contributors: lenasterg
 Tags: wpms, buddypress, group, document, plugin, file, media, storage, upload, widget
 Requires at least: WP 3.5, BuddyPress 1.7
 Tested up to: 3.6, BuddyPress 1.8
@@ -7,10 +7,11 @@ Stable tag: 1.0 (Requires at least: WP 3.5, BuddyPress 1.7)
 License: GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q4VCLDW4BFW6L 
 
-This allows members of BuddyPress groups to upload and store files and documents that are relevant to the group.
+BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document. 
 
 == Description ==
-Group Documents creates a page within each BuddyPress group to upload and any type of file or document. 
+Original plugin is <a href="http://wordpress.org/extend/plugins/buddypress-group-documents/">no longer supported</a> so revised.
+BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document. This allows members of BuddyPress groups to upload and store files and documents that are relevant to the group.
 Documents can be edited and deleted either by the document owner or by the group administrator.
 Categories can be used to organize documents. 
 Activity is logged in the main activity stream, and is also tied to the user and group activity streams.
@@ -20,6 +21,7 @@ The group administrator can decide if all members or only admins/moderators can 
 User verification for Downloads: when a document is downloaded, a redirect page checks is the user is member of the group (in case of a private  or hidden groups) and only then the user can download the file.(Since v0.5)
 3 Widgets: "User's groups documents" (since v0.5) ,"Recent Uploads" , "Popular Downloads"  can be used to show activity at a glance.
 
+Contributions by Lena Stergatu for WP 3.3, with additional bug fixes and improvements by <a href="http://keeblesmith.com">Keeble Smith</a> and Anton Andreasson work for BP 1.7. Original plugin author Peter Anselmo
 
 PLEASE: If you have any issues or it doesn't work for you, contact Lena on http://lenasterg.wordpress.com. Reporting bugs is the only way for them to be fixed.  It doesn't help anyone to mark "broken" without asking around.  Thanks!  
 
