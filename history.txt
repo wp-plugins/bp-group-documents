@@ -1,3 +1,6 @@
+Version 1.2 (September 3,2013)
+- Added Swedish translation. Thanks goes to nat0n (http://wordpress.org/support/profile/nat0n)
+
 Version 1.1 (September 3,2013)
 - Fix some broken links by changing the plugin directory name with BP_GROUP_DOCUMENTS_DIR constant
 

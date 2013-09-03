@@ -3,7 +3,7 @@ Contributors: lenasterg
 Tags: wpms, buddypress, group, document, plugin, file, media, storage, upload, widget
 Requires at least: WP 3.5, BuddyPress 1.7
 Tested up to: 3.6, BuddyPress 1.8
-Stable tag: 1.1 (Requires at least: WP 3.5, BuddyPress 1.7)
+Stable tag: 1.2 (Requires at least: WP 3.5, BuddyPress 1.7)
 License: GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q4VCLDW4BFW6L 
 
@@ -62,9 +62,18 @@ RewriteRule ^wp\-content/blogs\.dir/1/files/group\-documents/(.*) /?get_group_do
 
 
 ==Changelog==
-See history.txt for version changelog
+Version 1.2 (September 3,2013)
+- Added Swedish translation. Thanks goes to nat0n (http://wordpress.org/support/profile/nat0n)
 
-Aplogies for the frequent updates, this plugin is under active development!
+Version 1.1 (September 3,2013)
+- Fix some broken links by changing the plugin directory name with BP_GROUP_DOCUMENTS_DIR constant
+
+Version 1.0 (August 28,2013)
+- Update readme.txt
+- Add screenshots
+
+See history.txt for older version changelog
+Apologies for the frequent updates, this plugin is under active development!
 
 == Notes ==
 
