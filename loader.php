@@ -4,8 +4,8 @@
   Plugin Name: BP Group Documents
   PLugin URI: http://lenasterg.wordpress.com/
   Description: BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document. 
-  Version: 1.0
-  Revision Date: August 28, 2013
+  Version: 1.1
+  Revision Date: September 3, 2013
   Requires at least: WP 3.5.1, BuddyPress 1.7
   Tested up to: WP 3.6, BuddyPress 1.8
   License:  GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
@@ -54,6 +54,7 @@ function bp_group_documents_dir() {
 $bp_gr_dir = bp_group_documents_dir();
 
 define('BP_GROUP_DOCUMENTS_DIR', $bp_gr_dir); //the name of the directory that bp_group_documents  files are located.
+
 
 /**
  * @author Stergatu Eleni 
@@ -180,7 +181,7 @@ function bp_group_documents_set_constants() {
 
     //This is where to look for admin bulk uploads
     if (!defined('BP_GROUP_DOCUMENTS_ADMIN_UPLOAD_PATH'))
-        define('BP_GROUP_DOCUMENTS_ADMIN_UPLOAD_PATH', WP_PLUGIN_DIR . '/buddypress-group-documents/uploads/');
+        define('BP_GROUP_DOCUMENTS_ADMIN_UPLOAD_PATH', WP_PLUGIN_DIR .'/'. BP_GROUP_DOCUMENTS_DIR. '/uploads/');
 
     //Widgets can be set to only show documents in certain (site-admin specified) groups
     if (!defined('BP_GROUP_DOCUMENTS_WIDGET_GROUP_FILTER'))

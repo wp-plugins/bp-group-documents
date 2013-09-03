@@ -1,3 +1,6 @@
+Version 1.1 (September 3,2013)
+- Fix some broken links by changing the plugin directory name with BP_GROUP_DOCUMENTS_DIR constant
+
 Version 1.0 (August 28,2013)
 - Update readme.txt
 - Add screenshots

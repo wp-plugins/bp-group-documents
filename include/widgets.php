@@ -23,7 +23,7 @@ if ((is_active_widget(false, false, 'bp_group_documents_newest_widget')) || (is_
  */
 function bp_group_documents_add_my_stylesheet() {
     // Respects SSL, Style.css is relative to the current file
-    wp_register_style('bp-group-documents', WP_PLUGIN_URL . '/buddypress-group-documents/css/style.css', false, BP_GROUP_DOCUMENTS_VERSION);
+    wp_register_style('bp-group-documents', WP_PLUGIN_URL  .'/'. BP_GROUP_DOCUMENTS_DIR. '/css/style.css', false, BP_GROUP_DOCUMENTS_VERSION);
     wp_enqueue_style('bp-group-documents');
 }
 

@@ -447,13 +447,14 @@ function bp_group_documents_display_content() {
          * and if so, moves them to the new location (wp-content/blogs.dir)
          *
          * This will only fire when the admin page is viewed to save on overhead
+         * @version 2, 3/9/2013 fix BP_GROUP_DOCUMENTS_DIR
          */
         function bp_group_documents_check_legacy_paths() {
 
             if (defined('BP_GROUP_DOCUMENTS_PATH')) {
                 $legacy_path = BP_GROUP_DOCUMENTS_PATH;
             } else {
-                $legacy_path = WP_PLUGIN_DIR . '/buddypress-group-documents/documents/';
+                $legacy_path = WP_PLUGIN_DIR .'/'. BP_GROUP_DOCUMENTS_DIR.'/documents/';
             }
 
             if ($dh = @opendir($legacy_path)) {

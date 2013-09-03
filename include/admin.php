@@ -232,11 +232,12 @@ add_action(bp_core_admin_hook(), 'bp_group_documents_group_add_admin_menu', 10);
  * @param type $file
  * @return array
  * @since version 0.6
- * @version 1, 4/6/2013 stergtu
+ * @version 2, 3/9/2013, fix the BP_GROUP_DOCUMENTS_DIR
+ * version 1, 4/6/2013 stergtu
  * 
  */
 function bp_group_documents_settings_link($links, $file) {
-    $this_plugin = 'buddypress-group-documents/loader.php';
+    $this_plugin =BP_GROUP_DOCUMENTS_DIR.'/loader.php';
     if ($file == $this_plugin) {
         return array_merge($links, array(
             'settings' => '<a href="' . add_query_arg(array('page' => 'bp-group-documents-settings'), 
