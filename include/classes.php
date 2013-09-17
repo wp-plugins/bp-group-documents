@@ -1,9 +1,9 @@
 <?php
 
-/*
- * last edit by stergatu for version 0.5 on 5/3/2013. Replaced bp->group_documents_table with BP_GROUP_DOCUMENTS_TABLE
- * 
- */
+
+
+
+
 
 class BP_Group_Documents {
 
@@ -530,7 +530,7 @@ class BP_Group_Documents {
             'deb' => 'package.png',
             'doc' => 'page_white_word.png',
             'docx' => 'page_white_word.png',
-            'eps' => 'page_white_vector',
+            'eps' => 'page_white_vector.png',
             'exe' => 'application_xp_terminal.png',
             'fh' => 'page_white_freehand.png',
             'fl' => 'page_white_flash.png',
@@ -702,7 +702,9 @@ class BP_Group_Documents {
      * @param type $num
      * @param type $featured
      * @return type
-     * @version 1, 1/5/2013
+
+     * @version 2, 17/9/2013, stergatu fix the http://wordpress.org/support/topic/widget-functionality bug
+     * v1, 1/5/2013
      * @author stergatu
      * @since 0.5
      */
@@ -713,14 +715,16 @@ class BP_Group_Documents {
                 $group_array[] = bp_get_group_id();
             endwhile;
         }
-
-        $sql = "SELECT * FROM " . BP_GROUP_DOCUMENTS_TABLE . " WHERE group_id in ('"
+       
+        $sql = "SELECT * FROM " . BP_GROUP_DOCUMENTS_TABLE . " WHERE group_id in ("
                 . implode(',', $group_array) .
-                "' ) ";
+
+                " ) ";
         if ($featured && BP_GROUP_DOCUMENTS_FEATURED) {
             $sql .= "AND featured = 1 ";
         }
         $sql .= "ORDER BY created_ts DESC LIMIT %d";
+      
         $result = $wpdb->get_results($wpdb->prepare($sql, $num), ARRAY_A);
         return $result;
     }
@@ -752,4 +756,3 @@ class BP_Group_Documents {
 
 }
 
-?>

@@ -145,13 +145,13 @@ function bp_group_documents_delete_activity($args = true) {
  * @version 2, 13/5/2013, stergatu 
  */
 function activity_filter_options() {
-     global $bp;
-     $nav_page_name = get_option('bp_group_documents_nav_page_name');
-     $name = !empty($nav_page_name) ? $nav_page_name : __('Documents', 'bp-group-documents');
+    global $bp;
+    $nav_page_name = get_option('bp_group_documents_nav_page_name');
+    $name = !empty($nav_page_name) ? $nav_page_name : __('Documents', 'bp-group-documents');
     ?>
-    <option value="added_group_document"><?php printf( __( 'Show New Group %s', 'bp-group-documents'), $name ); ?>
+        <option value="added_group_document"><?php printf(__('Show New Group %s', 'bp-group-documents'), $name); ?>
     </option>
-    <option value="edited_group_document"><?php  printf( __('Show Group %s Edits', 'bp-group-documents'),$name); ?></option>
+    <option value="edited_group_document"><?php printf(__('Show Group %s Edits', 'bp-group-documents'), $name); ?></option>
     <?php
 }
 

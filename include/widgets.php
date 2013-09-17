@@ -23,7 +23,7 @@ if ((is_active_widget(false, false, 'bp_group_documents_newest_widget')) || (is_
  */
 function bp_group_documents_add_my_stylesheet() {
     // Respects SSL, Style.css is relative to the current file
-    wp_register_style('bp-group-documents', WP_PLUGIN_URL  .'/'. BP_GROUP_DOCUMENTS_DIR. '/css/style.css', false, BP_GROUP_DOCUMENTS_VERSION);
+    wp_register_style('bp-group-documents', WP_PLUGIN_URL . '/' . BP_GROUP_DOCUMENTS_DIR . '/css/style.css', false, BP_GROUP_DOCUMENTS_VERSION);
     wp_enqueue_style('bp-group-documents');
 }
 
@@ -58,9 +58,7 @@ class BP_Group_Documents_Newest_Widget extends WP_Widget {
         echo $before_title .
         $title .
         $after_title;
-        ?>
 
-        <?php
         do_action('bp_group_documents_newest_widget_before_html');
 
 //	eleni comment on 1/5/2013
@@ -80,7 +78,7 @@ class BP_Group_Documents_Newest_Widget extends WP_Widget {
                     $document->icon();
                 }
                 ?>
-                <a class="bp-group-documents-title" id="group-document-link-<?php echo $document->id; ?>" href="<?php $document->url(); ?>" target="_blank">
+                                <a class="bp-group-documents-title" id="group-document-link-<?php echo $document->id; ?>" href="<?php $document->url(); ?>" target="_blank">
                     <?php echo $document->name; ?></a>
                 <?php
                 if (!$instance['group_filter']) {
@@ -92,10 +90,7 @@ class BP_Group_Documents_Newest_Widget extends WP_Widget {
         } else {
             echo '<div class="widget-error">' . sprintf(__('There are no %s to display.', 'bp-group-documents'), $this->bp_group_documents_name) . '</div></p>';
         }
-        ?>
-
-        <?php echo $after_widget; ?>
-        <?php
+        echo $after_widget;
     }
 
     /**
@@ -132,9 +127,7 @@ class BP_Group_Documents_Newest_Widget extends WP_Widget {
         $featured = esc_attr($instance['featured']);
         $num_items = esc_attr($instance['num_items']);
         ?>
-
-        <p><label><?php _e('Title:', 'bp-group-documents'); ?></label><input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></p>
-
+                <p><label><?php _e('Title:', 'bp-group-documents'); ?></label><input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></p>
         <?php if (BP_GROUP_DOCUMENTS_WIDGET_GROUP_FILTER) { ?>
             <p><label><?php _e('Filter by Group:', 'bp-group-documents'); ?></label>
                 <select id="<?php echo $this->get_field_id('group_filter'); ?>" name="<?php echo $this->get_field_name('group_filter'); ?>" >
@@ -148,23 +141,23 @@ class BP_Group_Documents_Newest_Widget extends WP_Widget {
                         echo '>' . stripslashes($group->name) . '</option>';
                     }
                     ?>
-                </select></p>
-        <?php } ?>
+                                        </select></p>
+                        <?php
+                    }
 
-        <?php if (BP_GROUP_DOCUMENTS_FEATURED) { ?>
-            <p><input type="checkbox" id="<?php echo $this->get_field_id('featured'); ?>" name="<?php echo $this->get_field_name('featured'); ?>" value="1" <?php
-                if ($featured)
-                    echo 'checked="checked"';
+                    if (BP_GROUP_DOCUMENTS_FEATURED) {
+                        ?>
+                        <p><input type="checkbox" id="<?php echo $this->get_field_id('featured'); ?>" name="<?php echo $this->get_field_name('featured'); ?>" value="1" <?php
+                                  if ($featured)
+                                      echo 'checked="checked"';
                 ?>>
-                <label><?php printf(__('Show featured %s only', 'bp-group-documents'), $this->bp_group_documents_name); ?></label></p>
-        <?php } ?>
+                                        <label><?php printf(__('Show featured %s only', 'bp-group-documents'), $this->bp_group_documents_name); ?></label></p>
+                    <?php } ?>
+                    <p><label><?php _e('Number of items to show:', 'bp-group-documents'); ?></label> <input class="widefat" id="<?php echo $this->get_field_id('num_items'); ?>" name="<?php echo $this->get_field_name('num_items'); ?>" type="text" value="<?php echo esc_attr($num_items); ?>" style="width: 30%" /></p>
+                    <?php
+                }
 
-        <p><label><?php _e('Number of items to show:', 'bp-group-documents'); ?></label> <input class="widefat" id="<?php echo $this->get_field_id('num_items'); ?>" name="<?php echo $this->get_field_name('num_items'); ?>" type="text" value="<?php echo esc_attr($num_items); ?>" style="width: 30%" /></p>
-
-        <?php
-    }
-
-}
+            }
 
 /**
  * @version 3, 13/5/2013, stergatu
@@ -195,14 +188,12 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
         $title = apply_filters('widget_title', empty($instance['title']) ? sprintf(__('Popular Group %s', 'bp-group-documents'), $this->bp_group_documents_name) : $instance['title']);
 
         echo $before_widget . $before_title . $title . $after_title;
-        ?>
 
-        <?php
-        do_action('bp_group_documents_popular_widget_before_html');
+                do_action('bp_group_documents_popular_widget_before_html');
 
-        /*         * *
-         * Main HTML Display
-         */
+                /*                 * *
+                 * Main HTML Display
+                 */
         //	eleni comment on 1/5/2013 
 //        $group_id = $bp->groups->current_group->id;
 //        if ($group_id > 0) {
@@ -221,33 +212,30 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
                     $document->icon();
                 }
                 ?>
-                <a class="bp-group-documents-title" id="group-document-link-<?php echo $document->id; ?>" href="<?php $document->url(); ?>" target="_blank">
-                    <?php echo $document->name; ?></a>
+        <a class="bp-group-documents-title" id="group-document-link-<?php echo $document->id; ?>" href="<?php $document->url(); ?>" target="_blank">
+                            <?php echo $document->name; ?></a>
 
-                <br>
-                <?php
-                if (!$instance['group_filter']) {
-                    echo sprintf(__('posted in %s', 'bp-group-documents'), '<a href="' . bp_get_group_permalink($group) . '">' . esc_attr($group->name) . '</a>.');
+        <br>
+                        <?php
+                        if (!$instance['group_filter']) {
+                            echo sprintf(__('posted in %s', 'bp-group-documents'), '<a href="' . bp_get_group_permalink($group) . '">' . esc_attr($group->name) . '</a>.');
                 }
                 if ($instance['download_count']) {
-                      echo ' <span class="group-documents-download-count">' . 
-                                            $document->download_count.' ' . __('downloads', 'bp-group-documents').
-                                            '</span>';
-                }
-                echo '</li>';
+                                    echo ' <span class="group-documents-download-count">' .
+                                    $document->download_count . ' ' . __('downloads', 'bp-group-documents') .
+                                    '</span>';
+                                }
+                                echo '</li>';
             }
             echo '</ul>';
         } else {
             echo '<div class="widget-error">' . sprintf(__('There are no %s to display.', 'bp-group-documents'), $this->bp_group_documents_name) . '</div></p>';
         }
-        ?>
+        echo $after_widget;
+                    }
 
-        <?php echo $after_widget; ?>
-        <?php
-    }
-
-    function update($new_instance, $old_instance) {
-        do_action('bp_group_documents_newest_widget_update');
+                    function update($new_instance, $old_instance) {
+                        do_action('bp_group_documents_newest_widget_update');
 
         $instance = $old_instance;
         $instance['title'] = strip_tags($new_instance['title']);
@@ -268,17 +256,15 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
         $featured = esc_attr($instance['featured']);
         $num_items = esc_attr($instance['num_items']);
         $download_count = esc_attr($instance['download_count']);
-         
-        ?>
+                        ?>
 
-        <p><label><?php _e('Title:', 'bp-group-documents'); ?></label><input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></p>
-
-        <?php if (BP_GROUP_DOCUMENTS_WIDGET_GROUP_FILTER) { ?>
-            <p><label><?php _e('Filter by Group:', 'bp-group-documents'); ?></label>
-                <select id="<?php echo $this->get_field_id('group_filter'); ?>" name="<?php echo $this->get_field_name('group_filter'); ?>" >
-                    <option value="0"><?php _e('Select Group...', 'bp-group-documents'); ?></option>
-                    <?php
-                    $groups_list = BP_Groups_Group::get('alphabetical');
+                <p><label><?php _e('Title:', 'bp-group-documents'); ?></label><input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></p>
+                        <?php if (BP_GROUP_DOCUMENTS_WIDGET_GROUP_FILTER) { ?>
+                            <p><label><?php _e('Filter by Group:', 'bp-group-documents'); ?></label>
+                                <select id="<?php echo $this->get_field_id('group_filter'); ?>" name="<?php echo $this->get_field_name('group_filter'); ?>" >
+                                    <option value="0"><?php _e('Select Group...', 'bp-group-documents'); ?></option>
+                                    <?php
+                                    $groups_list = BP_Groups_Group::get('alphabetical');
 //                                get_alphabetically();
                     foreach ($groups_list['groups'] as $group) {
                         echo '<option value="' . $group->id . '" ';
@@ -287,27 +273,27 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
                         echo '>' . stripslashes($group->name) . '</option>';
                     }
                     ?>
-                </select></p>
-        <?php } ?>
-
-        <?php if (BP_GROUP_DOCUMENTS_FEATURED) { ?>
-            <p><input type="checkbox" id="<?php echo $this->get_field_id('featured'); ?>" name="<?php echo $this->get_field_name('featured'); ?>" value="1" <?php
-                if ($featured)
-                    echo 'checked="checked"';
+                                        </select></p>
+                    <?php }
+                    if (BP_GROUP_DOCUMENTS_FEATURED) {
+                        ?>
+                        <p><input type="checkbox" id="<?php echo $this->get_field_id('featured'); ?>" name="<?php echo $this->get_field_name('featured'); ?>" value="1" <?php
+                                  if ($featured)
+                                      echo 'checked="checked"';
                 ?>>
-                <label><?php printf(__('Show featured %s only', 'bp-group-documents'), $this->bp_group_documents_name); ?></label></p>
-        <?php } ?>
+                                        <label><?php printf(__('Show featured %s only', 'bp-group-documents'), $this->bp_group_documents_name); ?></label></p>
+                    <?php } ?>
 
-        <p><label><?php _e('Number of items to show:', 'bp-group-documents'); ?></label> <input class="widefat" id="<?php echo $this->get_field_id('num_items'); ?>" name="<?php echo $this->get_field_name('num_items'); ?>" type="text" value="<?php echo esc_attr($num_items); ?>" style="width: 30%" /></p>
-       <p><input type="checkbox" id="<?php echo $this->get_field_id('download_count'); ?>" name="<?php echo $this->get_field_name('download_count'); ?>" value="1" <?php
-                if ($download_count)
-                    echo 'checked="checked"';
-                ?>>
-                <label><?php printf(__('Show downloads', 'bp-group-documents'), $this->bp_group_documents_name); ?></label></p>
-        <?php
-    }
+            <p><label><?php _e('Number of items to show:', 'bp-group-documents'); ?></label> <input class="widefat" id="<?php echo $this->get_field_id('num_items'); ?>" name="<?php echo $this->get_field_name('num_items'); ?>" type="text" value="<?php echo esc_attr($num_items); ?>" style="width: 30%" /></p>
+                    <p><input type="checkbox" id="<?php echo $this->get_field_id('download_count'); ?>" name="<?php echo $this->get_field_name('download_count'); ?>" value="1" <?php
+                        if ($download_count)
+                            echo 'checked="checked"';
+                        ?>>
+                        <label><?php printf(__('Show downloads', 'bp-group-documents'), $this->bp_group_documents_name); ?></label></p>
+                    <?php
+                }
 
-}
+            }
 
 /**
  * @version 3, 13/5/2013, stergatu
@@ -321,10 +307,10 @@ class BP_Group_Documents_Usergroups_Widget extends WP_Widget {
         $nav_page_name = get_option('bp_group_documents_nav_page_name');
         $this->bp_group_documents_name = !empty($nav_page_name) ? $nav_page_name : __('Documents', 'bp-group-documents');
         parent::__construct(
-                'bp_group_documents_usergroups_widget', '(BP Group Documents) ' . sprintf(__('%s in your groups', 'bp-group-documents'),  $this->bp_group_documents_name), // Name
-                array('description' => sprintf(__('%s for a logged in user\'s groups.', 'bp-group-documents'),  $this->bp_group_documents_name),
-            'classname' => 'bp_group_documents_widget')
-        );
+                'bp_group_documents_usergroups_widget', '(BP Group Documents) ' . sprintf(__('%s in your groups', 'bp-group-documents'), $this->bp_group_documents_name), // Name
+                        array('description' => sprintf(__('%s for a logged in user\'s groups.', 'bp-group-documents'), $this->bp_group_documents_name),
+                    'classname' => 'bp_group_documents_widget')
+                );
 
         if (is_active_widget(false, false, $this->id_base)) {
             add_action('', 'bp_group_documents_add_my_stylesheet');
@@ -343,16 +329,14 @@ class BP_Group_Documents_Usergroups_Widget extends WP_Widget {
         if ($results['total'] == 0)
             return;
         extract($args);
-        $title = apply_filters('widget_title', empty($instance['title']) ? sprintf(__('Recent %s from your Groups', 'bp-group-documents'),$this->bp_group_documents_name) : $instance['title']);
+        $title = apply_filters('widget_title', empty($instance['title']) ? sprintf(__('Recent %s from your Groups', 'bp-group-documents'), $this->bp_group_documents_name) : $instance['title']);
 
-        echo $before_widget . $before_title . $title . $after_title;
-        ?>
+                echo $before_widget . $before_title . $title . $after_title;
 
-        <?php
-        do_action('bp_group_documents_usergroups_widget_before_html');
-        $document_list = BP_Group_Documents::get_list_for_usergroups_widget($instance['num_items'], $instance['featured']);
+                do_action('bp_group_documents_usergroups_widget_before_html');
+                $document_list = BP_Group_Documents::get_list_for_usergroups_widget($instance['num_items'], $instance['featured']);
 
-        if ($document_list && count($document_list) >= 1) {
+                if ($document_list && count($document_list) >= 1) {
             echo '<ul id="bp-group-documents-usergroups" class="bp-group-documents-list">';
             foreach ($document_list as $item) {
                 $document = new BP_Group_Documents($item['id']);
@@ -362,26 +346,23 @@ class BP_Group_Documents_Usergroups_Widget extends WP_Widget {
                     $document->icon();
                 }
                 ?>
-                <a class="bp-group-documents-title" id="group-document-link-<?php echo $document->id; ?>" 
-                   href="<?php $document->url(); ?>" target="_blank">
-                <?php echo $document->name; ?></a>
-                <?php
-                echo sprintf(__('posted in %s', 'bp-group-documents'), '<a href="' . bp_get_group_permalink($group) . '">' . esc_attr($group->name) . '</a>');
+        <a class="bp-group-documents-title" id="group-document-link-<?php echo $document->id; ?>" 
+                           href="<?php $document->url(); ?>" target="_blank">
+                            <?php echo $document->name; ?></a>
+                        <?php
+                        echo sprintf(__('posted in %s', 'bp-group-documents'), '<a href="' . bp_get_group_permalink($group) . '">' . esc_attr($group->name) . '</a>');
 
-                echo '</li>';
+                        echo '</li>';
             }
             echo '</ul>';
         } else {
-            echo '<div class="widget-error">' . sprintf(__('There are no %s to display.', 'bp-group-documents'),$this->bp_group_documents_name) . '</div></p>';
-        }
-        ?>
+            echo '<div class="widget-error">' . sprintf(__('There are no %s to display.', 'bp-group-documents'), $this->bp_group_documents_name) . '</div></p>';
+                }
+                echo $after_widget;
+            }
 
-        <?php echo $after_widget; ?>
-        <?php
-    }
-
-    function update($new_instance, $old_instance) {
-        do_action('bp_group_documents_usergroups_widget_update');
+            function update($new_instance, $old_instance) {
+                do_action('bp_group_documents_usergroups_widget_update');
 
         $instance = $old_instance;
         $instance['title'] = strip_tags($new_instance['title']);
@@ -400,17 +381,17 @@ class BP_Group_Documents_Usergroups_Widget extends WP_Widget {
         $num_items = esc_attr($instance['num_items']);
         ?>
 
-        <p><label><?php _e('Title:', 'bp-group-documents'); ?></label><input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></p>
-            <?php if (BP_GROUP_DOCUMENTS_FEATURED) { ?>
-            <p><input type="checkbox" id="<?php echo $this->get_field_id('featured'); ?>" name="<?php echo $this->get_field_name('featured'); ?>" value="1" <?php
-                      if ($featured)
-                          echo 'checked="checked"';
-                      ?>>
-                <label><?php printf(__('Show featured %s only', 'bp-group-documents'),$this->bp_group_documents_name); ?></label></p>
-        <?php } ?>
+                        <p><label><?php _e('Title:', 'bp-group-documents'); ?></label><input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></p>
+                <?php if (BP_GROUP_DOCUMENTS_FEATURED) { ?>
+                    <p><input type="checkbox" id="<?php echo $this->get_field_id('featured'); ?>" name="<?php echo $this->get_field_name('featured'); ?>" value="1" <?php
+                        if ($featured)
+                            echo 'checked="checked"';
+                        ?>>
+                        <label><?php printf(__('Show featured %s only', 'bp-group-documents'), $this->bp_group_documents_name); ?></label></p>
+                <?php } ?>
 
-        <p><label><?php _e('Number of items to show:', 'bp-group-documents'); ?></label> <input class="widefat" id="<?php echo $this->get_field_id('num_items'); ?>" name="<?php echo $this->get_field_name('num_items'); ?>" type="text" value="<?php echo esc_attr($num_items); ?>" style="width: 30%" /></p>
-        <?php
-    }
+            <p><label><?php _e('Number of items to show:', 'bp-group-documents'); ?></label> <input class="widefat" id="<?php echo $this->get_field_id('num_items'); ?>" name="<?php echo $this->get_field_name('num_items'); ?>" type="text" value="<?php echo esc_attr($num_items); ?>" style="width: 30%" /></p>
+                    <?php
+                }
 
-}
+            }

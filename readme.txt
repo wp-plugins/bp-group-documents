@@ -3,11 +3,11 @@ Contributors: lenasterg
 Tags: wpms, buddypress, group, document, plugin, file, media, storage, upload, widget
 Requires at least: WP 3.5, BuddyPress 1.7
 Tested up to: 3.6, BuddyPress 1.8
-Stable tag: 1.2 (Requires at least: WP 3.5, BuddyPress 1.7)
+Stable tag: 1.2.1 (Requires at least: WP 3.5, BuddyPress 1.7)
 License: GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q4VCLDW4BFW6L 
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q4VCLDW4BFW6L
 
-BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document. 
+BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document.
 
 == Description ==
 Original plugin is <a href="http://wordpress.org/extend/plugins/buddypress-group-documents/">no longer supported</a> so revised.
@@ -15,16 +15,16 @@ Original plugin is <a href="http://wordpress.org/extend/plugins/buddypress-group
 BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document. This allows members of BuddyPress groups to upload and store files and documents that are relevant to the group.
 
 Documents can be edited and deleted either by the document owner or by the group administrator.
-Categories can be used to organize documents. 
+Categories can be used to organize documents.
 Activity is logged in the main activity stream, and is also tied to the user and group activity streams.
 The site administrator can set filters on file extensions, set display options, and upload files via FTP.
-Group members and moderators can receive email notifications at their option. 
+Group members and moderators can receive email notifications at their option.
 The group administrator can decide if all members or only admins/moderators can upload documents (Since v0.5)
 User verification for Downloads: when a document is downloaded, a redirect page checks is the user is member of the group (in case of a private  or hidden groups) and only then the user can download the file.(Since v0.5)
 3 Widgets: "User's groups documents" (since v0.5) ,"Recent Uploads" , "Popular Downloads"  can be used to show activity at a glance.
 Contributions by Lena Stergatu for WP 3.3, with additional bug fixes and improvements by Keeble Smith (http://keeblesmith.com) and Anton Andreasson work for BP 1.7. Original plugin author Peter Anselmo.
 
-PLEASE: If you have any issues or it doesn't work for you, please report in support forum.  It doesn't help anyone to mark "broken" without asking around.  Thanks!  
+PLEASE: If you have any issues or it doesn't work for you, please report in support forum.  It doesn't help anyone to mark "broken" without asking around.  Thanks!
 
 NOTE: For Buddypress v1.5, use the plugin's version 0.4.3.3. available in http://lenasterg.wordpress.com/2012/04/17/buddypress-group-documents-for-bp-1-5-and-wp-3-3/
 
@@ -38,10 +38,10 @@ Browse to the plugin administration screen and activate the plugin.
 
 There will now be a "Group Documents" menu item under the "Settings" menu.  Here you will find a list of all file extensions allowed for uploaded files along with other settings.
 
-== Upgrade Notice == 
-If you upgrade from older version you must also add a  your .htaccess in order 
+== Upgrade Notice ==
+If you upgrade from older version you must also add a  your .htaccess in order
 to ensure that requests to the old URLs are redirected to the new, hardened URL
-That line is: 
+That line is:
 RewriteRule ^wp\-content/blogs\.dir/1/files/group\-documents/(.*) /?get_group_doc=$1 [R,L]
 
 
@@ -55,13 +55,18 @@ RewriteRule ^wp\-content/blogs\.dir/1/files/group\-documents/(.*) /?get_group_do
 3. Upload document form
 4. Document list tab
 5. Ties into site activity stream (for public groups only)
-6. Group admin document's settings tab, allow category's edit, addition 
+6. Group admin document's settings tab, allow category's edit, addition
 7. User options for email notifications
 8. Widget Recent Documents from your groups  and Widget Popular Group Documents
 9. Message when non member of a private or hidden group tries to access a group document
 
 
 ==Changelog==
+Version 1.2.1 (September 17, 2013)
+- Bug fix: http://wordpress.org/support/topic/bugfix-for-broken-icon-link, thanks to @sanderbontje
+- Bug fix: http://wordpress.org/support/topic/error-message-if-you-edit-groups thanks to @valuser for reporting
+- Bug fix: http://wordpress.org/support/topic/widget-functionality thanks to @kcurlsjr for reporting
+
 Version 1.2 (September 3,2013)
 - Added Swedish translation. Thanks goes to nat0n (http://wordpress.org/support/profile/nat0n)
 
