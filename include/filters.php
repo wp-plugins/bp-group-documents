@@ -56,7 +56,8 @@ add_filter('bp_group_documents_file_url', 'cac_filter_doc_url', 10, 3);
  * 
  * @return type
  * @since 0.5
- * @version 2, 10/5/2013
+ * @version 1.2.2
+ * v2, 10/5/2013
  */
 function cac_catch_group_doc_request() {
     $error = false;
@@ -75,17 +76,16 @@ function cac_catch_group_doc_request() {
 
     if (empty($group->id)) {
         $error = array(
-            'message' => 'That group does not exist.',
+            'message' => __('That group does not exist.', 'bp-group-documents'),
             'redirect' => bp_get_root_domain()
         );
     } else {
         if ($group->status != 'public') { // If the group is not public, 
-            
             if (!(is_super_admin())) { //then the user must be logged in and
-            // a member of the group to download the document
+                // a member of the group to download the document
                 if (!is_user_logged_in() || !groups_is_user_member(bp_loggedin_user_id(), $group_id)) {
                     $error = array(
-                        'message' => sprintf('You must be a logged-in member of the group %s to access this document. If you are a member of the group, please log into the site and try again.', $group->name),
+                        'message' => sprintf(__('You must be a logged-in member of the group %s to access this document. If you are a member of the group, please log into the site and try again.', 'bp-group-documents'), $group->name),
                         'redirect' => bp_get_group_permalink($group)
                     );
                 }
@@ -118,7 +118,7 @@ function cac_catch_group_doc_request() {
             } else {
                 // File does not exist
                 $error = array(
-                    'message' => _e('The file could not be found.','bp-group-documents'),
+                    'message' => _e('The file could not be found.', 'bp-group-documents'),
                     'redirect' => bp_get_group_permalink($group) . 'documents'
                 );
             }
@@ -133,7 +133,8 @@ function cac_catch_group_doc_request() {
 add_filter('wp', 'cac_catch_group_doc_request', 1);
 
 // http://www.php.net/manual/en/function.mime-content-type.php#87856
-if(!function_exists('mime_content_type')) {
+if (!function_exists('mime_content_type')) {
+
     function mime_content_type($filename) {
         $mime_types = array(
             'txt' => 'text/plain',
@@ -146,7 +147,6 @@ if(!function_exists('mime_content_type')) {
             'xml' => 'application/xml',
             'swf' => 'application/x-shockwave-flash',
             'flv' => 'video/x-flv',
-
             // images
             'png' => 'image/png',
             'jpe' => 'image/jpeg',
@@ -159,49 +159,43 @@ if(!function_exists('mime_content_type')) {
             'tif' => 'image/tiff',
             'svg' => 'image/svg+xml',
             'svgz' => 'image/svg+xml',
-
             // archives
             'zip' => 'application/zip',
             'rar' => 'application/x-rar-compressed',
             'exe' => 'application/x-msdownload',
             'msi' => 'application/x-msdownload',
             'cab' => 'application/vnd.ms-cab-compressed',
-
             // audio/video
             'mp3' => 'audio/mpeg',
             'qt' => 'video/quicktime',
             'mov' => 'video/quicktime',
-
             // adobe
             'pdf' => 'application/pdf',
             'psd' => 'image/vnd.adobe.photoshop',
             'ai' => 'application/postscript',
             'eps' => 'application/postscript',
             'ps' => 'application/postscript',
-
             // ms office
             'doc' => 'application/msword',
             'rtf' => 'application/rtf',
             'xls' => 'application/vnd.ms-excel',
             'ppt' => 'application/vnd.ms-powerpoint',
-
             // open office
             'odt' => 'application/vnd.oasis.opendocument.text',
             'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
         );
 
-        $ext = strtolower(array_pop(explode('.',$filename)));
+        $ext = strtolower(array_pop(explode('.', $filename)));
         if (array_key_exists($ext, $mime_types)) {
             return $mime_types[$ext];
-        }
-        elseif (function_exists('finfo_open')) {
+        } elseif (function_exists('finfo_open')) {
             $finfo = finfo_open(FILEINFO_MIME);
             $mimetype = finfo_file($finfo, $filename);
             finfo_close($finfo);
             return $mimetype;
-        }
-        else {
+        } else {
             return 'application/octet-stream';
         }
     }
+
 }

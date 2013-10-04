@@ -3,9 +3,9 @@
 /*
   Plugin Name: BP Group Documents
   PLugin URI: http://lenasterg.wordpress.com/
-  Description: BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document. 
-  Version: 1.2.1
-  Revision Date: September 17, 2013
+  Description: BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document.
+  Version: 1.2.2
+  Revision Date: October 4, 2013
   Requires at least: WP 3.5.1, BuddyPress 1.7
   Tested up to: WP 3.6, BuddyPress 1.8
   License:  GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
@@ -54,7 +54,6 @@ function bp_group_documents_dir() {
 $bp_gr_dir = bp_group_documents_dir();
 
 define('BP_GROUP_DOCUMENTS_DIR', $bp_gr_dir); //the name of the directory that bp_group_documents  files are located.
-
 
 /**
  * @author Stergatu Eleni 
@@ -108,7 +107,7 @@ register_activation_hook(__FILE__, 'bp_group_documents_is_installed');
  */
 function bp_group_documents_install_upgrade() {
     global $wpdb, $bp;
-      
+
     $charset_collate = '';
     if (!empty($wpdb->charset)) {
         $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
@@ -171,7 +170,7 @@ function bp_group_documents_tableCreate($charset_collate) {
 /**
  * @author Stergatu Eleni  
  * @since 0.5
- * @version 2, 24/4/2013
+ * @version 1.2.2, remove constants related to admin uploads
  */
 function bp_group_documents_set_constants() {
     global $wpdb, $bp;
@@ -179,9 +178,6 @@ function bp_group_documents_set_constants() {
         define('BP_GROUP_DOCUMENTS_TABLE', $wpdb->base_prefix . 'bp_group_documents');
 
 
-    //This is where to look for admin bulk uploads
-    if (!defined('BP_GROUP_DOCUMENTS_ADMIN_UPLOAD_PATH'))
-        define('BP_GROUP_DOCUMENTS_ADMIN_UPLOAD_PATH', WP_PLUGIN_DIR .'/'. BP_GROUP_DOCUMENTS_DIR. '/uploads/');
 
     //Widgets can be set to only show documents in certain (site-admin specified) groups
     if (!defined('BP_GROUP_DOCUMENTS_WIDGET_GROUP_FILTER'))

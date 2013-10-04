@@ -3,7 +3,7 @@ Contributors: lenasterg
 Tags: wpms, buddypress, group, document, plugin, file, media, storage, upload, widget
 Requires at least: WP 3.5, BuddyPress 1.7
 Tested up to: 3.6, BuddyPress 1.8
-Stable tag: 1.2.1 (Requires at least: WP 3.5, BuddyPress 1.7)
+Stable tag: 1.2.2 (Requires at least: WP 3.5, BuddyPress 1.7)
 License: GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q4VCLDW4BFW6L
 
@@ -17,7 +17,7 @@ BP Group Documents creates a page within each BuddyPress group to upload and any
 Documents can be edited and deleted either by the document owner or by the group administrator.
 Categories can be used to organize documents.
 Activity is logged in the main activity stream, and is also tied to the user and group activity streams.
-The site administrator can set filters on file extensions, set display options, and upload files via FTP.
+The site administrator can set filters on file extensions, set display options.
 Group members and moderators can receive email notifications at their option.
 The group administrator can decide if all members or only admins/moderators can upload documents (Since v0.5)
 User verification for Downloads: when a document is downloaded, a redirect page checks is the user is member of the group (in case of a private  or hidden groups) and only then the user can download the file.(Since v0.5)
@@ -26,7 +26,7 @@ Contributions by Lena Stergatu for WP 3.3, with additional bug fixes and improve
 
 PLEASE: If you have any issues or it doesn't work for you, please report in support forum.  It doesn't help anyone to mark "broken" without asking around.  Thanks!
 
-NOTE: For Buddypress v1.5, use the plugin's version 0.4.3.3. available in http://lenasterg.wordpress.com/2012/04/17/buddypress-group-documents-for-bp-1-5-and-wp-3-3/
+
 
 == Installation ==
 
@@ -62,6 +62,17 @@ RewriteRule ^wp\-content/blogs\.dir/1/files/group\-documents/(.*) /?get_group_do
 
 
 ==Changelog==
+
+Version 1.2.2 (October 4, 2013)
+- MAJOR security bug fixes. (Thanks to @tomdxw for reporting and patch them)
+- Update bp-group-documents.pot file
+- Fix super admin's rights for all group documents
+- Fix wrong placed error messagew
+- Remove depreceted functions
+- Remove administrators FTP ability, in favor of security
+
+
+
 Version 1.2.1 (September 17, 2013)
 - Bug fix: http://wordpress.org/support/topic/bugfix-for-broken-icon-link, thanks to @sanderbontje
 - Bug fix: http://wordpress.org/support/topic/error-message-if-you-edit-groups thanks to @valuser for reporting

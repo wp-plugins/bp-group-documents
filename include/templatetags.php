@@ -70,28 +70,33 @@ class BP_Group_Documents_Template {
      *
      * checks the POST array to see if user has submitted either a new document
      * or has updated a current document.  Creates objects, and used database methods to process
+     * @version 1.2.2, 3/10/2013 stergatu, sanitize_text_field, add wp_verify
      */
     private function do_post_logic() {
         global $bp;
-
-        do_action('bp_group_documents_template_do_post_action');
-
         if (isset($_POST['bp_group_documents_operation'])) {
+            $nonce = $_POST['bp_group_document_save'];
+            if ((!isset($nonce)) || (!wp_verify_nonce($nonce, 'bp_group_document_save_' . $_POST['bp_group_documents_operation']))) {
+                bp_core_add_message(__('There was a security problem', 'bp-group-documents'), 'error');
+                return false;
+            }
+
+            do_action('bp_group_documents_template_do_post_action');
+
             if (get_magic_quotes_gpc()) {
                 $_POST = array_map('stripslashes_deep', $_POST);
             }
-
 
             switch ($_POST['bp_group_documents_operation']) {
                 case 'add':
                     $document = new BP_Group_Documents();
                     $document->user_id = get_current_user_id();
                     $document->group_id = $bp->groups->current_group->id;
-                    $document->name = $_POST['bp_group_documents_name'];
+                    $document->name = sanitize_text_field($_POST['bp_group_documents_name']);
                     if (BP_GROUP_DOCUMENTS_ALLOW_WP_EDITOR)
                         $document->description = wp_filter_post_kses(wpautop($_POST['bp_group_documents_description']));
                     else
-                        $document->description = $_POST['bp_group_documents_description'];
+                        $document->description = wp_filter_post_kses(wpautop($_POST['bp_group_documents_description']));
                     $document->featured = apply_filters('bp_group_documents_featured_in', $_POST['bp_group_documents_featured']);
                     if ($document->save()) {
                         self::update_categories($document);
@@ -101,11 +106,11 @@ class BP_Group_Documents_Template {
                     break;
                 case 'edit':
                     $document = new BP_Group_Documents($_POST['bp_group_documents_id']);
-                    $document->name = $_POST['bp_group_documents_name'];
+                    $document->name = sanitize_text_field($_POST['bp_group_documents_name']);
                     if (BP_GROUP_DOCUMENTS_ALLOW_WP_EDITOR)
                         $document->description = wp_filter_post_kses(wpautop($_POST['bp_group_documents_description']));
                     else
-                        $document->description = $_POST['bp_group_documents_description'];
+                        $document->description = wp_filter_post_kses(wpautop($_POST['bp_group_documents_description']));
                     $document->featured = apply_filters('bp_group_documents_featured_in', $_POST['bp_group_documents_featured']);
                     self::update_categories($document);
                     if ($document->save()) {
@@ -142,13 +147,13 @@ class BP_Group_Documents_Template {
     /**
      * 
      * @global type $bp
-     * @version 3, 1/8/2013, stergatu, implement  direct call to  add document functionality
+     * @version 1.2.2 add security, fix misplayed error messages
+     * v1.2.1, 1/8/2013, stergatu, implement  direct call to  add document functionality
      * @since version 0.8
      * 
      */
     private function do_url_logic() {
         global $bp;
-
         do_action('bp_group_documents_template_do_url_logic');
 
         //figure out what to display in the bottom "detail" area based on url
@@ -158,47 +163,61 @@ class BP_Group_Documents_Template {
         if ($document->current_user_can('add')) {
             $this->header = __('Upload a New Document', 'bp-group-documents');
             $this->show_detail = 1;
-            if (($bp->current_action == BP_GROUP_DOCUMENTS_SLUG)) {
-                //stergatu add on 1/8/2013
-                //implement direct call to  document file functionality
-                if ($bp->action_variables[0] == 'add') {
-                    ?>
-                    <script language="javascript">
-                        jQuery(document).ready(function($) {
-                            $('#bp-group-documents-upload-button').slideUp();
-                            $('#bp-group-documents-upload-new').slideDown();
-                            $('html, body').animate({
-                                scrollTop: $("#bp-group-documents-upload-new").offset().top
-                            }, 2000);
-                        });
-                    </script><?php
-
-                }
-            }
-        } else {
-            bp_core_add_message(__("You don't have permission to upload files", 'bp-group-documents'), 'error');
         }
         //if we're editing, grab existing data
 //          
         if (($bp->current_action == BP_GROUP_DOCUMENTS_SLUG)) {
-            if (count($bp->action_variables) > 1) {
+            if (count($bp->action_variables) > 0) {
+                //stergatu add on 1/8/2013
+                //implement direct call to  document file functionality
+                if ($bp->action_variables[0] == 'add') {
+                    if ($document->current_user_can('add')) {
+                        ?>
+                                                <script language="javascript">
+                            jQuery(document).ready(function($) {
+                                $('#bp-group-documents-upload-button').slideUp();
+                                $('#bp-group-documents-upload-new').slideDown();
+                                $('html, body').animate({
+                                    scrollTop: $("#bp-group-documents-upload-new").offset().top
+                                }, 2000);
+                            });
+                        </script>
+                        <?php
 
-                if ($bp->action_variables[0] == 'edit') {
-                    if (ctype_digit($bp->action_variables[1])) {
-                        $document = new BP_Group_Documents($bp->action_variables[1]);
-                        $this->name = apply_filters('bp_group_documents_name_out', $document->name);
-                        $this->description = apply_filters('bp_group_documents_description_out', $document->description);
-                        $this->featured = apply_filters('bp_group_documents_featured_out', $document->featured);
-                        $this->doc_categories = wp_get_object_terms($document->id, 'group-documents-category');
-                        $this->operation = 'edit';
-                        $this->id = $bp->action_variables[1];
-                        $this->header = __('Edit Document', 'bp-group-documents');
+                    } else {
+                        bp_core_add_message(__("You don't have permission to upload files", 'bp-group-documents'), 'error');
                     }
-                    //otherwise, we might be deleting
                 }
-                if ($bp->action_variables[0] == 'delete') {
-                    if (bp_group_documents_delete($bp->action_variables[1])) {
-                        bp_core_add_message(__('Document successfully deleted', 'bp-group-documents'));
+                if (count($bp->action_variables) > 1) {
+                    if ($bp->action_variables[0] == 'edit') {
+                        if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'group-documents-edit-link')) {
+                            bp_core_add_message(__('There was a security problem', 'bp-group-documents'), 'error');
+                            return false;
+                        }
+                        if (!ctype_digit($bp->action_variables[1])) {
+                            bp_core_add_message(__('The item to edit could not be found', 'bp-group-documents'), 'error');
+                            return false;
+                        }
+                        if (ctype_digit($bp->action_variables[1])) {
+                            $document = new BP_Group_Documents($bp->action_variables[1]);
+                            $this->name = apply_filters('bp_group_documents_name_out', $document->name);
+                            $this->description = apply_filters('bp_group_documents_description_out', $document->description);
+                            $this->featured = apply_filters('bp_group_documents_featured_out', $document->featured);
+                            $this->doc_categories = wp_get_object_terms($document->id, 'group-documents-category');
+                            $this->operation = 'edit';
+                            $this->id = $bp->action_variables[1];
+                            $this->header = __('Edit Document', 'bp-group-documents');
+                        }
+                        //otherwise, we might be deleting
+                    }
+                    if ($bp->action_variables[0] == 'delete') {
+                        if (!ctype_digit($bp->action_variables[1])) {
+                            bp_core_add_message(__('The item to delete could not be found', 'bp-group-documents'), 'error');
+                            return false;
+                        }
+                        if (bp_group_documents_delete($bp->action_variables[1])) {
+                            bp_core_add_message(__('Document successfully deleted', 'bp-group-documents'));
+                        }
                     }
                 }
             }

@@ -30,6 +30,15 @@ function bp_group_documents_forum_attachments_upload_attachment() {
 add_filter('group_forum_topic_text_before_save', 'bp_group_documents_forum_attachments_topic_text', 10, 1);
 add_filter('group_forum_post_text_before_save', 'bp_group_documents_forum_attachments_topic_text', 10, 1);
 
+
+/** 
+ * 
+ * @global type $bp
+ * @param type $topic_text
+ * @return type
+ * @version 1.2.2, stergatu 3/10/2013, sanitize_text_field
+ * @since 
+ */
 function bp_group_documents_forum_attachments_topic_text($topic_text) {
     global $bp;
 
@@ -37,8 +46,11 @@ function bp_group_documents_forum_attachments_topic_text($topic_text) {
         $document = new BP_Group_Documents();
         $document->user_id = get_current_user_id();
         $document->group_id = $bp->groups->current_group->id;
-        $document->name = $_POST['bp_group_documents_name'];
-        $document->description = $_POST['bp_group_documents_description'];
+        /* Never trust an input box */
+//        $document->name =  $_POST['bp_group_documents_name'];
+//        $document->description = $_POST['bp_group_documents_description'];
+        $document->name = sanitize_text_field($_POST['bp_group_documents_name']);
+        $document->description = sanitize_text_field($_POST['bp_group_documents_description']);
         if ($document->save()) {
             do_action('bp_group_documents_add_success', $document);
             bp_core_add_message(__('Document successfully uploaded', 'bp-group-documents'));
@@ -72,4 +84,3 @@ function bp_group_documents_forum_attachments_allowed_tags($forums_allowedtags) 
 
     return $forums_allowedtags;
 }
-?>

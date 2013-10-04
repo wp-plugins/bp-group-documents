@@ -128,16 +128,19 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
                                                     <?php
                                                 } elseif (isset($_GET['delete']) && ( $_GET['delete'] == $category->term_id )) {
                                                     ?>
-                                                    <div class="bp_group_documents_question" ><?php printf('Are you sure you want to delete category <b>%s</b>?', $category->name, 'bp-group-documents'); ?>
+                                                    <div class="bp_group_documents_question" ><?php printf(__('Are you sure you want to delete category <b>%s</b>?', 'bp-group-documents'), $category->name); ?>
                                                         <br/>
                                                         <?php
-                                                        printf('Any %s in the category will be left with no category', strtolower($this->name), 'bp-group-documents');
-                                                        printf('You can later assign them to another %s category.', strtolower($this->name), 'bp-group-documents');
-                                                        ?>
+                                                        printf(__('Any %s in the category will be left with no category.', 'bp-group-documents'), mb_strtolower($this->name));
+                                                                                ?>
+                        <br/>
+                        <?php
+                        _e('You can later assign them to another  category.', 'bp-group-documents');
+                        ?>
                                                         <input type="hidden" name="group_documents_category_del_id" value="<?php echo $category->term_id; ?>" />
                                                         <input type="submit" value="<?php _e('Delete', 'buddypress'); ?>" id="delCat" name="delCat"/>
                                                     </div>    
-                                                    <?
+                                                    <?php
                                                 } else {
                                                     $edit_link = wp_nonce_url($action_link . '?edit=' . $category->term_id, 'group_documents_category_edit');
                                                     $delete_link = wp_nonce_url($action_link . '?delete=' . $category->term_id, 'group_documents_category_delete');
@@ -192,10 +195,10 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
                                         break;
                                     case 'mods_only':
                                     default:
-                               _e("Only Group's Administrators and Moderators", 'bp-group-documents');
-                               break;
-                       }
-                       ?>
+                                        _e("Only Group's Administrators and Moderators", 'bp-group-documents');
+                                        break;
+                                }
+                                ?>
                                     </p>
                         <?php
                     }
@@ -210,11 +213,11 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
                         global $bp;
                         do_action('bp_group_documents_group_admin_save');
                         $message = false;
-            $type = '';
+                        $type = '';
 
-            $parent_id = BP_Group_Documents_Template::get_parent_category_id();
-            if ((!isset($_POST['save'])) && (!isset($_POST['addCat'])) && (!isset($_POST['editCat'])) && (!isset($_POST['delCat']))) {
-                return false;
+                        $parent_id = BP_Group_Documents_Template::get_parent_category_id();
+                        if ((!isset($_POST['save'])) && (!isset($_POST['addCat'])) && (!isset($_POST['editCat'])) && (!isset($_POST['delCat']))) {
+                            return false;
             }
 
             check_admin_referer('groups_edit_save_' . $this->slug);
@@ -306,11 +309,11 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
                             $previous_upload_permission = groups_get_groupmeta($group_id, 'bp_group_documents_upload_permission');
                             if ($_POST['bp_group_documents_upload_permission'] != $previous_upload_permission) {
                                 groups_update_groupmeta($group_id, 'bp_group_documents_upload_permission', $_POST['bp_group_documents_upload_permission']);
-                }
-            }
-        }
+                            }
+                        }
+                    }
 
-        function widget_display() {
+                    function widget_display() {
             ?>
                                     <div class="info-group">
                             <h4><?php echo esc_attr($this->name) ?></h4>
@@ -322,13 +325,13 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
                     }
 
                     /**
-         * @author Stergatu Eleni  
-         * @since 0.5
-         * @version 1, 6/3/2013
-         */
-        function register_textdomain() {
-            //load i18n files if present
-            $plugin_dir = dirname(plugin_basename(__FILE__)) . '/languages/';
+                     * @author Stergatu Eleni  
+                     * @since 0.5
+                     * @version 1, 6/3/2013
+                     */
+                    function register_textdomain() {
+                        //load i18n files if present
+                        $plugin_dir = dirname(plugin_basename(__FILE__)) . '/languages/';
             if (file_exists(dirname(__FILE__) . '/languages/bp-group-documents-' . get_locale() . '.mo')) {
                 load_plugin_textdomain('bp-group-documents', false, $plugin_dir);
             }
@@ -339,7 +342,8 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
     /**
      * @author Stergatu Eleni  
      * @since 0.5
-     * @version 1, 5/3/2013
+     * @version 1.2.2 remove admin-uploads.php file
+     * v1, 5/3/2013
      */
     function bp_group_documents_include_files() {
 
@@ -352,7 +356,6 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
         require ( dirname(__FILE__) . '/include/notifications.php' );
         require ( dirname(__FILE__) . '/include/activity.php' );
         require ( dirname(__FILE__) . '/include/templatetags.php' );
-        require ( dirname(__FILE__) . '/include/admin-uploads.php' );
         require ( dirname(__FILE__) . '/include/filters.php' );
         require ( dirname(__FILE__) . '/include/ajax.php' );
 

@@ -39,7 +39,8 @@ function bp_group_documents_display_title() {
 /**
  * 
  * @global type $bp
- * @version 2, 21/5/2013, stergatu, added documents categories
+ * @version 1.2.2, 3/10/2013, stergatu esc_textarea 
+ * v2, 21/5/2013, stergatu, added documents categories
  */
 function bp_group_documents_display_content() {
     global $bp;
@@ -67,28 +68,28 @@ function bp_group_documents_display_content() {
                                         echo 'selected="selected"';
                                     ?>><?php echo $category->name; ?></option>
                                         <?php } ?>
-                                </select>
-                                <input type="submit" class="button" value="<?php echo __('Go', 'bp-group-documents'); ?>" />
-                            </form>
-                        </div>
-                    <?php } ?>
-                    <div id="bp-group-documents-sorting">
-                        <form id="bp-group-documents-sort-form" method="get" action="<?php echo $template->action_link; ?>">
-                            <?php _e('Order by:', 'bp-group-documents'); ?>
-                            <select name="order">
-                                <option value="newest" <?php
-                                if ('newest' == $template->order)
-                                    echo 'selected="selected"';
-                                ?>><?php _e('Newest', 'bp-group-documents'); ?></option>
-                                <option value="alpha" <?php
+                            </select>
+                            <input type="submit" class="button" value="<?php echo __('Go', 'bp-group-documents'); ?>" />
+                        </form>
+                    </div>
+                <?php } ?>
+                <div id="bp-group-documents-sorting">
+                    <form id="bp-group-documents-sort-form" method="get" action="<?php echo $template->action_link; ?>">
+                        <?php _e('Order by:', 'bp-group-documents'); ?>
+                        <select name="order">
+                            <option value="newest" <?php
+                            if ('newest' == $template->order)
+                                echo 'selected="selected"';
+                            ?>><?php _e('Newest', 'bp-group-documents'); ?></option>
+                            <option value="alpha" <?php
                             if ('alpha' == $template->order)
                                 echo 'selected="selected"';
                             ?>><?php _e('Alphabetical', 'bp-group-documents'); ?></option>
-                                <option value="popular" <?php
+                            <option value="popular" <?php
                             if ('popular' == $template->order)
                                 echo 'selected="selected"';
                             ?>><?php _e('Most Popular', 'bp-group-documents'); ?></option>
-                            </select>
+                        </select>
                         <input type="submit" class="button" value="<?php _e('Go', 'bp-group-documents'); ?>" />
                     </form>
                 </div>
@@ -106,77 +107,70 @@ function bp_group_documents_display_content() {
                     </div>
                 <?php } ?>
 
-            </div> <!-- // subnav -->
+                </div> <!-- // subnav -->
             <?php
             if ($template->document_list && count($template->document_list >= 1)) {
                 if ('1.1' == substr(BP_VERSION, 0, 3)) {
                     ?>
-        <ul id="forum-topic-list" class="item-list">
+                    <ul id="forum-topic-list" class="item-list">
                     <?php } else {
                         ?>
                         <ul id="bp-group-documents-list" class="item-list">
-
-
                             <?php
                         }
                         //loop through each document and display content along with admin options
                         $count = 0;
                         foreach ($template->document_list as $document_params) {
-                        $document = new BP_Group_Documents($document_params['id'], $document_params);
-                        ?>
+                            $document = new BP_Group_Documents($document_params['id'], $document_params);
+                            ?>
+                            <li <?php
+                            if (++$count % 2)
+                                echo 'class="alt"';
+                            ?> >
+                                    <?php
+                                    if (get_option('bp_group_documents_display_icons'))
+                                        $document->icon();
+                                    ?>
 
-                                                <li <?php
-                                    if (++$count % 2)
-                                        echo 'class="alt"';
-                                    ?> >
-                                            <?php
-                                            if (get_option('bp_group_documents_display_icons'))
-                                                $document->icon();
-                                            ?>
-
-                                                    <a class="bp-group-documents-title" id="group-document-link-<?php echo $document->id; ?>" href="<?php $document->url(); ?>" target="_blank"><?php echo $document->name; ?>
+                                                    <a class="bp-group-documents-title" id="group-document-link-<?php echo $document->id; ?>" href="<?php $document->url(); ?>" target="_blank"><?php echo esc_html($document->name); ?>
 
                                             <?php
                                             if (get_option('bp_group_documents_display_file_size')) {
                                                 echo ' <span class="group-documents-filesize">(' . get_file_size($document) . ')</span>';
                                             }
-                                ?></a> &nbsp;<div class="bp-group-documents-meta">
-                                                <?php
-                                                $document->categories();
+                                            ?></a> &nbsp;<div class="bp-group-documents-meta">
+                                            <?php
+                                            $document->categories();
 
-                                                printf(__('Uploaded by %s on %s', 'bp-group-documents'), bp_core_get_userlink($document->user_id), date_i18n(get_option('date_format'), $document->created_ts));
-                                                ?>. 
+                                            printf(__('Uploaded by %s on %s', 'bp-group-documents'), bp_core_get_userlink($document->user_id), date_i18n(get_option('date_format'), $document->created_ts));
+                                            ?>. 
                                                 <?php
                                                 if (get_option('bp_group_documents_display_download_count')) {
                                                     echo ' <span class="group-documents-download-count">' .
                                                     $document->download_count . __(' downloads since then.', 'bp-group-documents') .
-                                        '</span>';
-                                    }
-                                    ?>
-                                </div>
-
-                                            <?php
-                                            //show edit and delete options if user is privileged
-                                            echo '<div class="admin-links">';
-                                            if ($document->current_user_can('edit')) {
-                                $edit_link = wp_nonce_url($template->action_link . 'edit/' . $document->id, 'group-documents-edit-link') . '#edit-document-form';
-                                echo "<a href='$edit_link'>" . __('Edit', 'bp-group-documents') . "</a> | ";
-                            }
-                            if ($document->current_user_can('delete')) {
-                                $delete_link = wp_nonce_url($template->action_link . 'delete/' . $document->id, 'group-documents-delete-link');
-                                echo "<a href='$delete_link' class='bp-group-documents-delete'>" . __('Delete', 'bp-group-documents') . "</a>";
+                                                    '</span>';
+                                                }
+                                                ?>
+                                        </div>
+                                        <?php
+                                        //show edit and delete options if user is privileged
+                                        echo '<div class="admin-links">';
+                                        if ($document->current_user_can('edit')) {
+                                            $edit_link = wp_nonce_url($template->action_link . 'edit/' . $document->id, 'group-documents-edit-link') . '#edit-document-form';
+                                            echo "<a href='$edit_link'>" . __('Edit', 'bp-group-documents') . "</a> | ";
+                                        }
+                                        if ($document->current_user_can('delete')) {
+                                            $delete_link = wp_nonce_url($template->action_link . 'delete/' . $document->id, 'group-documents-delete-link');
+                                            echo "<a href='$delete_link' class='bp-group-documents-delete'>" . __('Delete', 'bp-group-documents') . "</a>";
                             }
                             echo '</div>';
 
 
                             if (BP_GROUP_DOCUMENTS_SHOW_DESCRIPTIONS && $document->description) {
-                                if (BP_GROUP_DOCUMENTS_ALLOW_WP_EDITOR)
-                                    echo '<span class="group-documents-description">' . stripslashes($document->description) . '</span>';
-                                else
-                                    echo '<span class="group-documents-description">' . nl2br($document->description) . '</span>';
-                            }
+                                echo '<span class="group-documents-description">' . wp_kses($document->description, wp_kses_allowed_html('post')) . '</span>';
+            }
 
-                            //eleni add this in order to display the Addthis button on 3/2/2011	
+                                            //eleni add this in order to display the Addthis button on 3/2/2011	
                             include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
                             if (is_plugin_active('buddypress-addthis-ls/bp-addthis-ls.php')) {
                                 echo get_bp_addthis_ls_button($document->get_url(), $document->name);
@@ -206,7 +200,6 @@ function bp_group_documents_display_content() {
                         //-------------------------------------------------------------------DETAIL VIEW--          
 
                         if ($template->show_detail) {
-
                             if ($template->operation == 'add') {
                                 ?>
                                 <div id="bp-group-documents-upload-new">
@@ -219,7 +212,6 @@ function bp_group_documents_display_content() {
                                         <form method="post" id="bp-group-documents-form" class="standard-form" action="<?php echo $template->action_link; ?>" enctype="multipart/form-data">
                                     <input type="hidden" name="bp_group_documents_operation" value="<?php echo $template->operation; ?>" />
                                     <input type="hidden" name="bp_group_documents_id" value="<?php echo $template->id; ?>" />
-
                                     <?php if ($template->operation == 'add') : ?>
                                         <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo return_bytes(ini_get('post_max_size')); ?>" />
                                         <label class="bp-group-documents-file-label"><?php _e('Choose File:', 'bp-group-documents'); ?></label>
@@ -234,31 +226,31 @@ function bp_group_documents_display_content() {
                                     <?php else: ?>
                                         <label><?php _e('Document:', 'bp-group-documents'); ?>:</label><span><?php echo $template->name; ?></span>
 
-                                    <?php
-                                    endif;
-                                    if (BP_GROUP_DOCUMENTS_FEATURED) {
+                                        <?php
+                                        endif;
+                                        if (BP_GROUP_DOCUMENTS_FEATURED) {
+                                            ?>
+                                            <label class="bp-group-documents-featured-label"><?php _e('Featured Document', 'bp-group-documents'); ?>: </label>
+                                            <input type="checkbox" name="bp_group_documents_featured" class="bp-group-documents-featured" value="1" <?php if ($template->featured) echo 'checked="checked"'; ?>/>
+                                        <?php } ?>
+                                        <div id="document-detail-clear" class="clear"></div>
+                                        <div class="bp-group-documents-document-info">
+                                            <label><?php _e('Display Name:', 'bp-group-documents'); ?></label>
+                                            <input type="text" name="bp_group_documents_name" id="bp-group-documents-name" value="<?php echo $template->name ?>" />
+                                            <?php if (BP_GROUP_DOCUMENTS_SHOW_DESCRIPTIONS) { ?>
+                                                <label><?php _e('Description:', 'bp-group-documents'); ?></label>
+                                                <?php
+                                                if (BP_GROUP_DOCUMENTS_ALLOW_WP_EDITOR) :
+                                                    if (function_exists('wp_editor')) {
+                                                        wp_editor($template->description, 'bp_group_documents_description', array(
+                                                            'media_buttons' => false,
+                                                            'dfw' => false));
+                                                    }
+                                                    else
+                                                        the_editor($template->description, 'bp_group_documents_description', 'bp_group_documents_description', false);
+                                                else:
                                         ?>
-                                        <label class="bp-group-documents-featured-label"><?php _e('Featured Document', 'bp-group-documents'); ?>: </label>
-                                        <input type="checkbox" name="bp_group_documents_featured" class="bp-group-documents-featured" value="1" <?php if ($template->featured) echo 'checked="checked"'; ?>/>
-                                    <?php } ?>
-                                    <div id="document-detail-clear" class="clear"></div>
-                                    <div class="bp-group-documents-document-info">
-                                        <label><?php _e('Display Name:', 'bp-group-documents'); ?></label>
-                                        <input type="text" name="bp_group_documents_name" id="bp-group-documents-name" value="<?php echo $template->name ?>" />
-                                        <?php if (BP_GROUP_DOCUMENTS_SHOW_DESCRIPTIONS) { ?>
-                                            <label><?php _e('Description:', 'bp-group-documents'); ?></label>
-                                            <?php
-                                            if (BP_GROUP_DOCUMENTS_ALLOW_WP_EDITOR) :
-                                                if (function_exists('wp_editor')) {
-                                                    wp_editor($template->description, 'bp_group_documents_description', array(
-                                                'media_buttons' => false,
-                                                'dfw' => false));
-                                        }
-                                        else
-                                            the_editor($template->description, 'bp_group_documents_description', 'bp_group_documents_description', false);
-                                    else:
-                                        ?>
-                                    <textarea name="bp_group_documents_description" id="bp-group-documents-description" rows="5" cols="100"><?php echo $template->description; ?></textarea>
+                                    <textarea name="bp_group_documents_description" id="bp-group-documents-description" rows="5" cols="100"><?php echo esc_textarea($template->description); ?></textarea>
                                                 <?php
                                                 endif;
                                             }
@@ -286,15 +278,13 @@ function bp_group_documents_display_content() {
                                             <input type="text" name="bp_group_documents_new_category" class="bp-group-documents-new-category" />
                                         </div><!-- .bp-group-documents-category-wrapper -->
                                     <?php } ?>
+                                    <?php wp_nonce_field('bp_group_document_save_' . $template->operation, 'bp_group_document_save'); ?>
                                     <input type="submit" class="button" value="<?php _e('Save', 'bp-group-documents'); ?>" />
                                 </form>
                                 </div><!--end #post-new-topic-->
 
                             <?php if ($template->operation == 'add') { ?>
                                 <a class="button" id="bp-group-documents-upload-button" href="" style="display:none;"><?php _e('Upload a New Document', 'bp-group-documents'); ?></a>
-
-
-
                                 <?php
                             }
                         }
@@ -308,24 +298,25 @@ function bp_group_documents_display_content() {
                      * **********************EVERYTHING ELSE************************************
                      * *********************************************************************** */
 
-        /*
-         * bp_group_documents_delete()
-         *
-         * after perfoming several validation checks, deletes both the uploaded
-         * file and the reference in the database
-         */
+                    /*
+                     * bp_group_documents_delete()
+                     *
+                     * after perfoming several validation checks, deletes both the uploaded
+                     * file and the reference in the database
+                     */
 
-        function bp_group_documents_delete($id) {
+                    function bp_group_documents_delete($id) {
+                        //check nonce
+                        if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'group-documents-delete-link')) {
+                            bp_core_add_message(__('There was a security problem', 'bp-group-documents'), 'error');
+                return false;
+            }
             if (!ctype_digit($id)) {
                 bp_core_add_message(__('The item to delete could not be found', 'bp-group-documents'), 'error');
                 return false;
             }
 
-            //check nonce
-            if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'group-documents-delete-link')) {
-                bp_core_add_message(__('There was a security problem', 'bp-group-documents'), 'error');
-                return false;
-            }
+
 
             $document = new BP_Group_Documents($id);
             if ($document->current_user_can('delete')) {
@@ -451,36 +442,12 @@ function bp_group_documents_display_content() {
             }
         }
 
-        add_action('plugins_loaded', 'bp_group_documents_set_cookies');
+        add_action('plugins_loaded', 'bp_group_documents_set 
 
-        /** bp_group_documents_check_legacy_paths()
-         *
-         * checks if there are any documents in the old location (documents folder in plugin)
-         * and if so, moves them to the new location (wp-content/blogs.dir)
-         *
-         * This will only fire when the admin page is viewed to save on overhead
-         * @version 2, 3/9/2013 fix BP_GROUP_DOCUMENTS_DIR
-         */
-        function bp_group_documents_check_legacy_paths() {
+            
 
-            if (defined('BP_GROUP_DOCUMENTS_PATH')) {
-                $legacy_path = BP_GROUP_DOCUMENTS_PATH;
-            } else {
-                $legacy_path = WP_PLUGIN_DIR . '/' . BP_GROUP_DOCUMENTS_DIR . '/documents/';
-            }
+            
 
-            if ($dh = @opendir($legacy_path)) {
-                $moved_count = 0;
-                while (false !== ($file = readdir($dh) )) {
-                    if ($file != "." && $file != "..") {
-                        $document = new BP_Group_Documents();
-                        if ($document->populate_by_file($file)) {
-                            rename($legacy_path . $file, $document->get_path(0, 1));
-                            ++$moved_count;
-                        }
-                    }
-                }
-            }
-        }
+              
 
-        add_action('bp_group_documents_admin', 'bp_group_documents_check_legacy_paths');
+            _cookies'); 

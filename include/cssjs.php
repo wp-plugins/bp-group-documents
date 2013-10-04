@@ -47,11 +47,11 @@ add_action('wp_enqueue_scripts', 'bp_group_documents_front_cssjs');
  * bp_group_documents_admin_cssjs()
  *
  * This function will enqueue the css and js files for the admin back-end
- * @version 2 7/3/2013 stergatu, replaced hardcoded plugin directory with BP_GROUP_DOCUMENTS_DIR
+ * @version 1.2.2, remove admin.js call
+ 
  */
 function bp_group_documents_admin_cssjs() {
     wp_enqueue_style('bp-group-documents-admin', WP_PLUGIN_URL . '/' . BP_GROUP_DOCUMENTS_DIR . '/css/admin.css');
-    wp_enqueue_script('bp-group-documents-admin', WP_PLUGIN_URL . '/' . BP_GROUP_DOCUMENTS_DIR . '/js/admin.js', array('jquery'));
 }
 
 //changed with chriskeeble suggestion

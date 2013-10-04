@@ -1,10 +1,5 @@
 <?php
 
-
-
-
-
-
 class BP_Group_Documents {
 
     public $id; //int
@@ -235,12 +230,14 @@ class BP_Group_Documents {
      * 
      * When passed an action, it returns true if the user has the privilages
      * to perfrom that action and false if they do not
-     * @version 2, stergatu add group_id variable in order to make it work for every group and not only current group
+     * @version 1.2.2
+     * v1.2.1, stergatu add group_id variable in order to make it work for every group and not only current group
      * @global type $bp
      * @param type $action (add, edit, delete)
      * @param type $group_id
      * @return boolean
      */
+
     public function current_user_can($action, $group_id = false) {
         global $bp;
 
@@ -249,12 +246,17 @@ class BP_Group_Documents {
         }
         $user_id = get_current_user_id();
 
+        if (is_super_admin($user_id)) {
+            return true;
+        }
+
         if (groups_is_user_admin($user_id, $group_id)) {
             return true;
         }
 
 
-        $user_is_owner = ($this->user_id == get_current_user_id() );
+
+        $user_is_owner = ($this->user_id == $user_id );
 
         switch ($action) {
             case 'add':
@@ -401,7 +403,7 @@ class BP_Group_Documents {
                 if (defined('BP_GROUP_DOCUMENTS_FILE_URL')) {
                     $document_url = BP_GROUP_DOCUMENTS_FILE_URL . $this->file;
                 } else { //if not there, check legacy location
-                    $document_url = WP_PLUGIN_URL .'/'. BP_GROUP_DOCUMENTS_DIR.'/documents/' . $this->file;
+                    $document_url = WP_PLUGIN_URL . '/' . BP_GROUP_DOCUMENTS_DIR . '/documents/' . $this->file;
                 }
             }
         }
@@ -462,7 +464,7 @@ class BP_Group_Documents {
 
             /* if not there, check legacy default */
             else
-                $document_path = WP_PLUGIN_DIR .'/'. BP_GROUP_DOCUMENTS_DIR .'/documents/' . $this->file;
+                $document_path = WP_PLUGIN_DIR . '/' . BP_GROUP_DOCUMENTS_DIR . '/documents/' . $this->file;
         }
 
         return apply_filters('bp_group_documents_file_path', $document_path, $this->group_id, $this->file);
@@ -581,7 +583,7 @@ class BP_Group_Documents {
         if (!isset($icons[$extension]))
             return false;
 
-        $img_folder = WP_PLUGIN_URL . '/'. BP_GROUP_DOCUMENTS_DIR. '/images/icons/';
+        $img_folder = WP_PLUGIN_URL . '/' . BP_GROUP_DOCUMENTS_DIR . '/images/icons/';
 
         $img_url = $img_folder . $icons[$extension];
 
@@ -599,6 +601,13 @@ class BP_Group_Documents {
     }
 
     /**
+     * 
+     * @global type $wpdb
+     * @global type $bp
+     * @param type $group_id
+     * @param type $category
+     * @return type
+     * @version 1.2.2.
      */
     public static function get_total($group_id, $category = false) {
         global $wpdb, $bp;
@@ -609,8 +618,8 @@ class BP_Group_Documents {
             $category_ids = get_objects_in_term($category, 'group-documents-category');
 
             if (!empty($category_ids)) {
-                $in_clause = '(' .
-                        $sql .= "AND id IN (" . implode(',', $category_ids) . ') ';
+                $in_clause = '(' . implode(',', array_map('absint', $category_ids)) . ') ';
+                $sql .= "AND id IN " . $in_clause;
             }
         }
 
@@ -659,13 +668,23 @@ class BP_Group_Documents {
         return $result;
     }
 
+    /**
+     * 
+     * @global type $wpdb
+     * @global type $bp
+     * @param type $num
+     * @param type $group_filter
+     * @param type $featured
+     * @return type
+     * @version 1.2.2
+     */
     public static function get_list_for_newest_widget($num, $group_filter = 0, $featured = 0) {
         global $wpdb, $bp;
 
         if ($group_filter || $featured) {
             $sql = "SELECT * FROM " . BP_GROUP_DOCUMENTS_TABLE . " WHERE 1=1 ";
             if ($group_filter)
-                $sql .= "AND group_id = $group_filter ";
+                $sql .= $wpdb->prepare("AND group_id = %d ", $group_filter);
             if ($featured && BP_GROUP_DOCUMENTS_FEATURED)
                 $sql .= "AND featured = 1 ";
             $sql .= "ORDER BY created_ts DESC LIMIT %d";
@@ -677,13 +696,23 @@ class BP_Group_Documents {
         return $result;
     }
 
+    /**
+     * 
+     * @global type $wpdb
+     * @global type $bp
+     * @param type $num
+     * @param type $group_filter
+     * @param type $featured
+     * @return type
+     * @version 1.2.2
+     */
     public static function get_list_for_popular_widget($num, $group_filter = 0, $featured = 0) {
         global $wpdb, $bp;
 
         if ($group_filter || $featured) {
             $sql = "SELECT * FROM " . BP_GROUP_DOCUMENTS_TABLE . " WHERE 1=1 ";
             if ($group_filter)
-                $sql .= "AND group_id = $group_filter ";
+                $sql .= $wpdb->prepare("AND group_id = %d ", $group_filter);
             if ($featured)
                 $sql .= "AND featured = 1 ";
             $sql .= "ORDER BY download_count DESC LIMIT %d";
@@ -703,7 +732,8 @@ class BP_Group_Documents {
      * @param type $featured
      * @return type
 
-     * @version 2, 17/9/2013, stergatu fix the http://wordpress.org/support/topic/widget-functionality bug
+     * @version 1.2.2
+     * v1.2.1, 17/9/2013, stergatu fix the http://wordpress.org/support/topic/widget-functionality bug
      * v1, 1/5/2013
      * @author stergatu
      * @since 0.5
@@ -715,16 +745,15 @@ class BP_Group_Documents {
                 $group_array[] = bp_get_group_id();
             endwhile;
         }
-       
-        $sql = "SELECT * FROM " . BP_GROUP_DOCUMENTS_TABLE . " WHERE group_id in ("
-                . implode(',', $group_array) .
 
+        $sql = "SELECT * FROM " . BP_GROUP_DOCUMENTS_TABLE . " WHERE group_id in ("
+                . implode(',', array_map('absint', $group_array)) .
                 " ) ";
         if ($featured && BP_GROUP_DOCUMENTS_FEATURED) {
             $sql .= "AND featured = 1 ";
         }
         $sql .= "ORDER BY created_ts DESC LIMIT %d";
-      
+
         $result = $wpdb->get_results($wpdb->prepare($sql, $num), ARRAY_A);
         return $result;
     }
@@ -755,4 +784,3 @@ class BP_Group_Documents {
     }
 
 }
-
