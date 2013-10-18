@@ -3,7 +3,7 @@ Contributors: lenasterg
 Tags: wpms, buddypress, group, document, plugin, file, media, storage, upload, widget
 Requires at least: WP 3.5, BuddyPress 1.7
 Tested up to: 3.6, BuddyPress 1.8
-Stable tag: 1.2.2 (Requires at least: WP 3.5, BuddyPress 1.7)
+Stable tag: 1.2.3 (Requires at least: WP 3.5, BuddyPress 1.7)
 License: GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q4VCLDW4BFW6L
 
@@ -62,6 +62,11 @@ RewriteRule ^wp\-content/blogs\.dir/1/files/group\-documents/(.*) /?get_group_do
 
 
 ==Changelog==
+
+
+Version 1.2.3 (October 18, 2013)
+- Fix a bug on editing categories when the group slug is not the default "groups. Thanks to @jomsky for reporting and patching it.
+- Dutch translation, thanks to @sanderbontje
 
 Version 1.2.2 (October 4, 2013)
 - MAJOR security bug fixes. (Thanks to @tomdxw for reporting and patch them)

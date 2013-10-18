@@ -94,7 +94,8 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
          * The content of the Group Documents page of the group admin
          * @author Stergatu Eleni <stergatu@cti.gr>
          * @since 0.5
-         * @version 3, 21/5/2013, fix the edit category
+         * @version 4 18/10/2013, fix the $action_link
+         * v3, 21/5/2013, fix the edit category
          */
         function edit_screen() {
             global $bp;
@@ -102,7 +103,7 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
                 return false;
             }
             //useful ur for submits & links
-            $action_link = get_bloginfo('url') . '/' . $bp->current_component . '/' . $bp->current_item . '/' . $bp->current_action . '/' . $this->slug;
+            $action_link = get_bloginfo('url') . '/' .bp_get_groups_root_slug() . '/' . $bp->current_item . '/' . $bp->current_action . '/' . $this->slug;
             $this->edit_create_markup($bp->groups->current_group->id);
             //only show categories if site admin chooses to
             if (get_option('bp_group_documents_use_categories')) {
