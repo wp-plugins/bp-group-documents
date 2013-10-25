@@ -2,8 +2,9 @@
 /**
  * @author Stergatu Eleni 
  * @since  0.5
- * @version 4 17/9/2013, fix the  http://wordpress.org/support/topic/error-message-if-you-edit-groups?replies=1 bug
+ * @version 1.3 25/10/2013, fix the Fatal error: Call to undefined function get_home_path() 
  * changelog 
+ * v4 17/9/2013, fix the  http://wordpress.org/support/topic/error-message-if-you-edit-groups?replies=1 bug
  * v3, 31/7/2013, change visibility to private
  * v2, 21/5/2013 fixed some bugs
  * v1, 7/3/2013
@@ -343,11 +344,16 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
     /**
      * @author Stergatu Eleni  
      * @since 0.5
-     * @version 1.2.2 remove admin-uploads.php file
+     * @version 1.3, 25/10/2013 Makes sure the get_home_path function is defined before trying to use it
+     * v1.2.2 remove admin-uploads.php file
      * v1, 5/3/2013
      */
     function bp_group_documents_include_files() {
 
+// Makes sure the get_home_path function is defined before trying to use it
+        if (!function_exists('get_home_path')) {
+            require_once( ABSPATH . '/wp-admin/includes/file.php' );
+        }
         require_once( ABSPATH . "wp-admin/includes/misc.php" );
         require ( dirname(__FILE__) . '/include/bp_group_documents_functions.php' );
         require ( dirname(__FILE__) . '/include/admin.php' );

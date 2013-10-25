@@ -2,8 +2,8 @@
 Contributors: lenasterg
 Tags: wpms, buddypress, group, document, plugin, file, media, storage, upload, widget
 Requires at least: WP 3.5, BuddyPress 1.7
-Tested up to: 3.6, BuddyPress 1.8
-Stable tag: 1.2.3 (Requires at least: WP 3.5, BuddyPress 1.7)
+Tested up to: 3.7, BuddyPress 1.8.1
+Stable tag: 1.3 (Requires at least: WP 3.5, BuddyPress 1.7)
 License: GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q4VCLDW4BFW6L
 
@@ -46,8 +46,10 @@ RewriteRule ^wp\-content/blogs\.dir/1/files/group\-documents/(.*) /?get_group_do
 
 
 == Frequently Asked Questions ==
- 1. If you run a windows server and you get errors about mb_convert_case  function which is a default php function (see http://php.net/manual/en/function.mb-convert-case.php), you must uncomment the line with php_mbstring.dll in your php.ini.
- 2. If you are a plugin developer and want to use the upload file form you can link to /group_slug/bpgroupdocuments_slug/add to access the upload document form
+=I get mb_convert_case error =
+If you run a windows server and you get errors about mb_convert_case  function which is a default php function (see http://php.net/manual/en/function.mb-convert-case.php), you must uncomment the line with php_mbstring.dll in your php.ini.
+=Can I link to the add file form=
+ If you are a plugin developer and want to use the upload file form you can link to /group_slug/bpgroupdocuments_slug/add to access the upload document form
 
 == Screenshots ==
 1. Admin settings page
@@ -62,6 +64,8 @@ RewriteRule ^wp\-content/blogs\.dir/1/files/group\-documents/(.*) /?get_group_do
 
 
 ==Changelog==
+Version 1.3 (October 25, 2013)
+- Fix a bug which causes Fatal error about the get_home_path() function in some installations.
 
 
 Version 1.2.3 (October 18, 2013)
