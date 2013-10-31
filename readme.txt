@@ -2,8 +2,8 @@
 Contributors: lenasterg
 Tags: wpms, buddypress, group, document, plugin, file, media, storage, upload, widget
 Requires at least: WP 3.5, BuddyPress 1.7
-Tested up to: 3.7, BuddyPress 1.8.1
-Stable tag: 1.3 (Requires at least: WP 3.5, BuddyPress 1.7)
+Tested up to: 3.7.1, BuddyPress 1.8.1
+Stable tag: 1.4 (Requires at least: WP 3.5, BuddyPress 1.7)
 License: GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q4VCLDW4BFW6L
 
@@ -46,9 +46,9 @@ RewriteRule ^wp\-content/blogs\.dir/1/files/group\-documents/(.*) /?get_group_do
 
 
 == Frequently Asked Questions ==
-=I get mb_convert_case error =
+= I get mb_convert_case error =
 If you run a windows server and you get errors about mb_convert_case  function which is a default php function (see http://php.net/manual/en/function.mb-convert-case.php), you must uncomment the line with php_mbstring.dll in your php.ini.
-=Can I link to the add file form=
+= Can I link to the add file form =
  If you are a plugin developer and want to use the upload file form you can link to /group_slug/bpgroupdocuments_slug/add to access the upload document form
 
 == Screenshots ==
@@ -63,39 +63,42 @@ If you run a windows server and you get errors about mb_convert_case  function w
 9. Message when non member of a private or hidden group tries to access a group document
 
 
-==Changelog==
-Version 1.3 (October 25, 2013)
-- Fix a bug which causes Fatal error about the get_home_path() function in some installations.
+== Changelog ==
+= Version 1.4 (October 31, 2013) =
+* Fix a bug which marked some themes as Broken in some installations.
+
+= Version 1.3 (October 25, 2013) =
+* Fix a bug which causes Fatal error about the get_home_path() function in some installations.
 
 
-Version 1.2.3 (October 18, 2013)
-- Fix a bug on editing categories when the group slug is not the default "groups. Thanks to @jomsky for reporting and patching it.
-- Dutch translation, thanks to @sanderbontje
+= Version 1.2.3 (October 18, 2013) =
+* Fix a bug on editing categories when the group slug is not the default "groups. Thanks to @jomsky for reporting and patching it.
+* Dutch translation, thanks to @sanderbontje
 
-Version 1.2.2 (October 4, 2013)
-- MAJOR security bug fixes. (Thanks to @tomdxw for reporting and patch them)
-- Update bp-group-documents.pot file
-- Fix super admin's rights for all group documents
-- Fix wrong placed error messagew
-- Remove depreceted functions
-- Remove administrators FTP ability, in favor of security
+= Version 1.2.2 (October 4, 2013) =
+* MAJOR security bug fixes. (Thanks to @tomdxw for reporting and patch them)
+* Update bp-group-documents.pot file
+* Fix super admin's rights for all group documents
+* Fix wrong placed error messagew
+* Remove depreceted functions
+* Remove administrators FTP ability, in favor of security
 
 
 
-Version 1.2.1 (September 17, 2013)
-- Bug fix: http://wordpress.org/support/topic/bugfix-for-broken-icon-link, thanks to @sanderbontje
-- Bug fix: http://wordpress.org/support/topic/error-message-if-you-edit-groups thanks to @valuser for reporting
-- Bug fix: http://wordpress.org/support/topic/widget-functionality thanks to @kcurlsjr for reporting
+= Version 1.2.1 (September 17, 2013) =
+* Bug fix: http://wordpress.org/support/topic/bugfix-for-broken-icon-link, thanks to @sanderbontje
+* Bug fix: http://wordpress.org/support/topic/error-message-if-you-edit-groups thanks to @valuser for reporting
+* Bug fix: http://wordpress.org/support/topic/widget-functionality thanks to @kcurlsjr for reporting
 
-Version 1.2 (September 3,2013)
-- Added Swedish translation. Thanks goes to nat0n (http://wordpress.org/support/profile/nat0n)
+= Version 1.2 (September 3,2013) =
+* Added Swedish translation. Thanks goes to nat0n (http://wordpress.org/support/profile/nat0n)
 
-Version 1.1 (September 3,2013)
-- Fix some broken links by changing the plugin directory name with BP_GROUP_DOCUMENTS_DIR constant
+= Version 1.1 (September 3,2013) =
+* Fix some broken links by changing the plugin directory name with BP_GROUP_DOCUMENTS_DIR constant
 
-Version 1.0 (August 28,2013)
-- Update readme.txt
-- Add screenshots
+= Version 1.0 (August 28,2013) =
+* Update readme.txt
+* Add screenshots
 
 See history.txt for older version changelog
 Apologies for the frequent updates, this plugin is under active development!

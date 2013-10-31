@@ -473,9 +473,11 @@ class BP_Group_Documents {
     /**
      * Prints documents categories
      * * @since version 0.5.4
-     * @version 1, 21/5/2013, stergatu
+     * @version  1.4, 31/10/2013 
+     * v1, 21/5/2013, stergatu
      */
     public function categories() {
+        $toprint = '';
         $categories_of_document = $this->get_document_categories();
         if (!empty($categories_of_document)) {
             if (!is_wp_error($categories_of_document)) {

@@ -104,7 +104,7 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
                 return false;
             }
             //useful ur for submits & links
-            $action_link = get_bloginfo('url') . '/' .bp_get_groups_root_slug() . '/' . $bp->current_item . '/' . $bp->current_action . '/' . $this->slug;
+            $action_link = get_bloginfo('url') . '/' . bp_get_groups_root_slug() . '/' . $bp->current_item . '/' . $bp->current_action . '/' . $this->slug;
             $this->edit_create_markup($bp->groups->current_group->id);
             //only show categories if site admin chooses to
             if (get_option('bp_group_documents_use_categories')) {
@@ -134,11 +134,11 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
                                                         <br/>
                                                         <?php
                                                         printf(__('Any %s in the category will be left with no category.', 'bp-group-documents'), mb_strtolower($this->name));
-                                                                                ?>
-                        <br/>
-                        <?php
-                        _e('You can later assign them to another  category.', 'bp-group-documents');
-                        ?>
+                                                        ?>
+                                                        <br/>
+                                                        <?php
+                                                        _e('You can later assign them to another  category.', 'bp-group-documents');
+                                                        ?>
                                                         <input type="hidden" name="group_documents_category_del_id" value="<?php echo $category->term_id; ?>" />
                                                         <input type="submit" value="<?php _e('Delete', 'buddypress'); ?>" id="delCat" name="delCat"/>
                                                     </div>    
@@ -189,40 +189,41 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
                                         <?php _e('All Group Members', 'bp-group-documents'); ?><br />
                                         <input type="radio" name="bp_group_documents_upload_permission" value="mods_only" 
                                                <?php if (!('members' == $upload_permission)) echo 'checked="checked"'; ?> />
-                                        <?php
-                                        _e("Only Group's Administrators and Moderators", 'bp-group-documents');
-                                        break;
-                                    case 'members':
-                                        _e('All Group Members', 'bp-group-documents');
-                                        break;
-                                    case 'mods_only':
-                                    default:
-                                        _e("Only Group's Administrators and Moderators", 'bp-group-documents');
-                                        break;
-                                }
-                                ?>
-                                    </p>
-                        <?php
-                    }
+                                               <?php
+                                               _e("Only Group's Administrators and Moderators", 'bp-group-documents');
+                                               break;
+                                           case 'members':
+                                               _e('All Group Members', 'bp-group-documents');
+                                               break;
+                                           case 'mods_only':
+                                           default:
+                                               _e("Only Group's Administrators and Moderators", 'bp-group-documents');
+                                               break;
+                                       }
+                                       ?>
+                            </p>
+                            <?php
+                        }
 
-                    /**
-                     * The routine run after the user clicks Save from your admin tab
-                     * @version 3,  27/8/2013, fix the messages
-                     * v2, 21/5/2013, fix the edit and delete category bug, Stergatu Eleni 
-                     * @since 0.5 
-                     */
-                    function edit_screen_save() {
-                        global $bp;
-                        do_action('bp_group_documents_group_admin_save');
-                        $message = false;
-                        $type = '';
+                        /**
+                         * The routine run after the user clicks Save from your admin tab
+                         * @version v1.4, 31/10/2013, fix some notices
+                         * v3,  27/8/2013, fix the messages
+                         * v2, 21/5/2013, fix the edit and delete category bug, Stergatu Eleni 
+                         * @since 0.5 
+                         */
+                        function edit_screen_save() {
+                            global $bp;
+                            do_action('bp_group_documents_group_admin_save');
+                            $message = false;
+                            $type = '';
 
-                        $parent_id = BP_Group_Documents_Template::get_parent_category_id();
-                        if ((!isset($_POST['save'])) && (!isset($_POST['addCat'])) && (!isset($_POST['editCat'])) && (!isset($_POST['delCat']))) {
-                            return false;
-            }
+                            $parent_id = BP_Group_Documents_Template::get_parent_category_id();
+                            if ((!isset($_POST['save'])) && (!isset($_POST['addCat'])) && (!isset($_POST['editCat'])) && (!isset($_POST['delCat']))) {
+                                return false;
+                            }
 
-            check_admin_referer('groups_edit_save_' . $this->slug);
+                            check_admin_referer('groups_edit_save_' . $this->slug);
             //check if category was deleted
             if (isset($_POST['group_documents_category_del_id']) &&
                     ctype_digit($_POST['group_documents_category_del_id']) &&
@@ -232,7 +233,7 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
                 }
             }
             //check if category was updatedsuccessfully
-            elseif (!(is_null($_POST['group_documents_category_edit'])) && (ctype_digit($_POST['group_documents_category_edit_id'])) && (term_exists((int) $_POST['group_documents_category_edit_id'], 'group-documents-category'))) {
+            elseif ((array_key_exists('group_documents_category_edit', $_POST)) && (ctype_digit($_POST['group_documents_category_edit_id'])) && (term_exists((int) $_POST['group_documents_category_edit_id'], 'group-documents-category'))) {
                 if (term_exists($_POST['group_documents_category_edit'], 'group-documents-category', $parent_id)) {
                     $message = sprintf(__('No changes were made. This %s category name is used already', 'bp-group-documents'), mb_strtolower($this->name));
                     $type = 'error';
@@ -307,33 +308,33 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
             //Update permissions
             $valid_permissions = array('members', 'mods_only');
 
-                        if (isset($_POST['bp_group_documents_upload_permission']) && in_array($_POST['bp_group_documents_upload_permission'], $valid_permissions)) {
-                            $previous_upload_permission = groups_get_groupmeta($group_id, 'bp_group_documents_upload_permission');
-                            if ($_POST['bp_group_documents_upload_permission'] != $previous_upload_permission) {
-                                groups_update_groupmeta($group_id, 'bp_group_documents_upload_permission', $_POST['bp_group_documents_upload_permission']);
-                            }
-                        }
-                    }
+            if (isset($_POST['bp_group_documents_upload_permission']) && in_array($_POST['bp_group_documents_upload_permission'], $valid_permissions)) {
+                $previous_upload_permission = groups_get_groupmeta($group_id, 'bp_group_documents_upload_permission');
+                if ($_POST['bp_group_documents_upload_permission'] != $previous_upload_permission) {
+                    groups_update_groupmeta($group_id, 'bp_group_documents_upload_permission', $_POST['bp_group_documents_upload_permission']);
+                }
+            }
+        }
 
-                    function widget_display() {
+        function widget_display() {
             ?>
-                                    <div class="info-group">
+                        <div class="info-group">
                             <h4><?php echo esc_attr($this->name) ?></h4>
                             <p>
                                 Not yet implemented
                             </p>
                         </div>
-                        <?php
-                    }
+            <?php
+        }
 
-                    /**
-                     * @author Stergatu Eleni  
-                     * @since 0.5
-                     * @version 1, 6/3/2013
-                     */
-                    function register_textdomain() {
-                        //load i18n files if present
-                        $plugin_dir = dirname(plugin_basename(__FILE__)) . '/languages/';
+        /**
+         * @author Stergatu Eleni  
+         * @since 0.5
+         * @version 1, 6/3/2013
+         */
+        function register_textdomain() {
+            //load i18n files if present
+            $plugin_dir = dirname(plugin_basename(__FILE__)) . '/languages/';
             if (file_exists(dirname(__FILE__) . '/languages/bp-group-documents-' . get_locale() . '.mo')) {
                 load_plugin_textdomain('bp-group-documents', false, $plugin_dir);
             }
