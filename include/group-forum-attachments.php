@@ -1,4 +1,8 @@
 <?php
+// Exit if accessed directly
+if (!defined('ABSPATH'))
+    exit;
+
 // Add group document uploading to new forum posts
 add_action('bp_after_group_forum_post_new', 'bp_group_documents_forum_attachments_upload_attachment');
 add_action('groups_forum_new_reply_after', 'bp_group_documents_forum_attachments_upload_attachment');

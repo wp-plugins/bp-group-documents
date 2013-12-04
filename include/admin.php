@@ -1,5 +1,9 @@
 <?php
 
+// Exit if accessed directly
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * bp_group_documents_admin()
  *
@@ -82,7 +86,7 @@ function bp_group_documents_admin() {
     ?>
         <div class="wrap">
             <h2>Buddypress Group Documents: <?php _e('Settings'); ?></h2>
-            <br />
+            <br/>
 
             <?php
             if (isset($updated))
@@ -113,16 +117,16 @@ function bp_group_documents_admin() {
                         <td><input type="radio" name="upload_permission" value="members" <?php
                             if ('members' == $upload_permission)
                                 echo 'checked="checked"';
-                            ?> /><?php _e('Members &amp; Moderators', 'bp-group-documents'); ?><br />
-                            <input type="radio" name="upload_permission" value="mods_only" <?php
+                            ?> /><?php _e('Members &amp; Moderators', 'bp-group-documents'); ?><br/>
+                                <input type="radio" name="upload_permission" value="mods_only" <?php
                             if ('mods_only' == $upload_permission)
                                 echo 'checked="checked"';
-                            ?> /><?php _e('Moderators Only', 'bp-group-documents'); ?><br />
-                            <input type="radio" name="upload_permission" value="mods_decide" <?php
+                            ?> /><?php _e('Moderators Only', 'bp-group-documents'); ?><br/>
+                                <input type="radio" name="upload_permission" value="mods_decide" <?php
                             if ('mods_decide' == $upload_permission)
                                 echo 'checked="checked"';
-                            ?> /><?php _e('Let individual moderators decide', 'bp-group-documents'); ?><br />
-                    </tr>
+                            ?> /><?php _e('Let individual moderators decide', 'bp-group-documents'); ?><br/>
+                        </tr>
                     <tr>
                         <th><label><?php _e('Use Categories', 'bp-group-documents') ?>:</label></th>
                         <td>
@@ -160,8 +164,7 @@ function bp_group_documents_admin() {
                     <input type="submit" name="submit" value="<?php _e('Save Settings', 'bp-group-documents') ?>"/>
                 </p>
                 <hr/>
-                <div class='info'>Check for plugin update / say thanks, leave comments etc at: <a href="http://lenasterg.wordpress.com" target="_blank">http://lenasterg.wordpress.com</a>
-                    <div>
+                        <div class='info'>
                         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=Q4VCLDW4BFW6L"><img style="border:0;" alt="" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21" border="0"></a>
                     </div>
                     <?php wp_nonce_field('bpgroup-documents-settings-save', 'bpgroup-documents-settings-nonce_field'); ?>
@@ -276,3 +279,48 @@ function bp_group_documents_check_legacy_paths() {
 }
 
 //    add_action('bp_group_documents_admin', 'bp_group_documents_check_legacy_paths');
+
+/**
+ * Registering the Activity actions for the BP GROUP DOCUMENTS plugin
+ *
+ * The registered actions will also be available in Administration
+ * screens
+ *
+ * @uses bp_activity_set_action()
+ * @version 1, 4/12/2013 stergatu
+ * @since 1.5
+ */
+function bp_group_documents_register_activity_actions() {
+    global $bp;
+    $nav_page_name = get_option('bp_group_documents_nav_page_name');
+    $name = !empty($nav_page_name) ? $nav_page_name : __('Documents', 'bp-group-documents');
+    bp_activity_set_action(
+            /* your component's id : same value as the "component" field you will use in
+              the {$wpdb->prefix}bp_activity MySQL table */
+            $bp->groups->id,
+            /* your component's activity type :
+              - same value as the "type" field you will use in the {$wpdb->prefix}bp_activity MySQL table
+              - it will be used in the value attribute of the plugin option in the activity selectbox
+             */ 'added_group_document',
+            /* your component's caption :
+              - it will be displayed to the user in the activity selectbox
+             */ sprintf(__('Show New Group %s', 'bp-group-documents'), $name)
+    );
+    bp_activity_set_action(
+            /* your component's id : same value as the "component" field you will use in
+              the {$wpdb->prefix}bp_activity MySQL table */
+            $bp->groups->id,
+            /* your component's activity type :
+              - same value as the "type" field you will use in the {$wpdb->prefix}bp_activity MySQL table
+              - it will be used in the value attribute of the plugin option in the activity selectbox
+             */ 'edited_group_document',
+            /* your component's caption :
+              - it will be displayed to the user in the activity selectbox
+             */ sprintf(__('Show Group %s Edits', 'bp-group-documents'), $name)
+    );
+}
+/**
+ * Registers the Activity actions so that they are available in the Activity Administration Screen
+ * Since it is a groups action we add it into groups_register_activity_actions action
+ */
+   add_action('groups_register_activity_actions', 'bp_group_documents_register_activity_actions');

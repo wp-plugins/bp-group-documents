@@ -1,4 +1,8 @@
 <?php
+// Exit if accessed directly
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * @todo, 1/5/2013 check if we really don't need the plugins loaded action
  * @todo, 1/5/2013, add the icon into the stylesheet

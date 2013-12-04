@@ -1,4 +1,8 @@
 <?php
+// Exit if accessed directly
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * @since version 0.5
  * containes functions previous on index.php
@@ -50,8 +54,8 @@ function bp_group_documents_display_content() {
     ?>
 
         <div id="bp-group-documents">
-        <?php do_action('template_notices') // (error/success feedback)        ?>
-        <h3><?php
+                <?php do_action('template_notices') // (error/success feedback)        ?>
+                <h3><?php
             echo get_option('bp_group_documents_nav_page_name') . ' ' . __('List', 'bp-group-documents');
             ?></h3>
             <?php //-----------------------------------------------------------------------LIST VIEW--       ?>

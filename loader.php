@@ -3,13 +3,15 @@
 /*
   Plugin Name: BP Group Documents
   Plugin URI: wordpress.org/plugins/bp-group-documents/
+
   Description: BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document.
-  Version: 1.4
-  Revision Date: October 31, 2013
+  Version: 1.5
+  Revision Date: December 4, 2013
   Requires at least: WP 3.5.1, BuddyPress 1.7
   Tested up to: WP 3.7.1, BuddyPress 1.8.1
   License:  GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
   Author: <a href="http://lenasterg.wordpress.com">lenasterg</a>, since v. 0.4.3.3. with additional bug fixing and improvements by <a href="http://keeblesmith.com">Keeble Smith</a>. Original plugin author Peter Anselmo, Studio66.
+
   Network Only: true
  * @todo minor, make a deregister function, 26/4/2013 stergatu
  */
@@ -19,7 +21,7 @@
 
 //some constants that can be checked when extending this plugin
 define('BP_GROUP_DOCUMENTS_IS_INSTALLED', 1);
-define('BP_GROUP_DOCUMENTS_VERSION', '1.4');
+define('BP_GROUP_DOCUMENTS_VERSION', '1.5');
 define('BP_GROUP_DOCUMENTS_DB_VERSION', '5');
 define('BP_GROUP_DOCUMENTS_VALID_FILE_FORMATS', 'odt,rtf,txt,doc,docx,xls,xlsx,ppt,pps,pptx,pdf,jpg,jpeg,gif,png,zip,tar,gz');
 define('BP_GROUP_DOCUMENTS_ITEMS_PER_PAGE', 20);
@@ -38,7 +40,7 @@ if (!defined('BP_GROUP_DOCUMENTS_SLUG')) {
 
 /**
  * Nifty function to get the name of the directory bp_group_documents plugin is installed in.
- * @author  Stergatu Eleni 
+ * @author  Stergatu Eleni
  * @version 1, 6/3/2013
  * @since 0.5
  */
@@ -55,11 +57,11 @@ $bp_gr_dir = bp_group_documents_dir();
 define('BP_GROUP_DOCUMENTS_DIR', $bp_gr_dir); //the name of the directory that bp_group_documents  files are located.
 
 /**
- * @author Stergatu Eleni 
+ * @author Stergatu Eleni
  * @global type $wpdb
  * @return type
  * @since 0.5
- * @version 1 30/4/2013
+ * @version 1.5 4/12/2013 added the bp_group_documents_load_textdomain() call
  */
 function bp_group_documents_init() {
     global $wpdb;
@@ -73,6 +75,7 @@ function bp_group_documents_init() {
         require( dirname(__FILE__) . '/buddypress-group-documents.php' );
         bp_group_documents_include_files();
     }
+    bp_group_documents_load_textdomain();
 }
 
 add_action('bp_loaded', 'bp_group_documents_init', 50);
@@ -97,10 +100,10 @@ register_activation_hook(__FILE__, 'bp_group_documents_is_installed');
  * bp_group_documents_install_upgrade()
  *
  * Installs and/or upgrades the database tables
- * This will only run if the database version constant is         
+ * This will only run if the database version constant is
  * greater than the stored database version value or no database version found
  * @author Stergatu Eleni <stergatu@cti.gr>
- * @version 1.0, 7/3/2013 now uses add_site_option instead of add_option 
+ * @version 1.0, 7/3/2013 now uses add_site_option instead of add_option
  * @since 0.5
 
  */
@@ -138,7 +141,7 @@ function bp_group_documents_install_upgrade() {
 }
 
 /**
- * SQL create command for BP_GROUP_DOCUMENTS_TABLE 
+ * SQL create command for BP_GROUP_DOCUMENTS_TABLE
  * @since version 0.5
  * @author stergatu
  * @version 1.0, 25/4/2013
@@ -167,7 +170,7 @@ function bp_group_documents_tableCreate($charset_collate) {
 }
 
 /**
- * @author Stergatu Eleni  
+ * @author Stergatu Eleni
  * @since 0.5
  * @version 1.2.2, remove constants related to admin uploads
  */
@@ -210,4 +213,20 @@ function bp_group_documents_set_constants() {
             break;
     }
     do_action('bp_group_documents_globals_loaded');
+}
+
+/**
+ * @author Stergatu Eleni
+ * @since 1.5
+ * @version 1, 4/12/2013
+ */
+function bp_group_documents_load_textdomain() {
+    $domain = 'bp-group-documents';
+    // The "plugin_locale" filter is also used in load_plugin_textdomain()
+    $locale = apply_filters('plugin_locale', get_locale(), $domain);
+    load_textdomain($domain, WP_LANG_DIR . '/bp-group-documents/' . $domain . '-' . $locale . '.mo');
+
+    if (file_exists(dirname(__FILE__) . '/languages/bp-group-documents-' . get_locale() . '.mo')) {
+        load_plugin_textdomain($domain, false, dirname(plugin_basename(__FILE__)) . '/languages/');
+    }
 }

@@ -1,5 +1,9 @@
 <?php
 
+// Exit if accessed directly
+if (!defined('ABSPATH'))
+    exit;
+
 class BP_Group_Documents {
 
     public $id; //int
@@ -52,7 +56,7 @@ class BP_Group_Documents {
     /**
      * populate_passed()
      *
-     * This method will populate the object with the passed parameters, 
+     * This method will populate the object with the passed parameters,
      * saving a call to the database
      */
     private function populate_passed($params) {
@@ -100,7 +104,7 @@ class BP_Group_Documents {
         if ($this->id) {
             // Update
             $result = $wpdb->query($wpdb->prepare(
-                            "UPDATE " . BP_GROUP_DOCUMENTS_TABLE . " SET 
+                            "UPDATE " . BP_GROUP_DOCUMENTS_TABLE . " SET
 						modified_ts = %d,
 						name = %s,
 						description = %s,
@@ -116,16 +120,16 @@ class BP_Group_Documents {
             }
 
             $result = $wpdb->query($wpdb->prepare(
-                            "INSERT INTO " . BP_GROUP_DOCUMENTS_TABLE . " ( 
+                            "INSERT INTO " . BP_GROUP_DOCUMENTS_TABLE . " (
 					user_id,
-					group_id, 
+					group_id,
 					created_ts,
 					modified_ts,
 					file,
 					name,
 					description,
 					featured
-				) VALUES ( 
+				) VALUES (
 					%d, %d, %d, %d, %s, %s, %s, %d
 				)", $this->user_id, $this->group_id, time(), time(), $this->file, $this->name, $this->description, $this->featured
             ));
@@ -227,7 +231,7 @@ class BP_Group_Documents {
 
     /*
      * current_user_can()
-     * 
+     *
      * When passed an action, it returns true if the user has the privilages
      * to perfrom that action and false if they do not
      * @version 1.2.2
@@ -303,7 +307,7 @@ class BP_Group_Documents {
 
 //    /*
 //     * current_user_can()
-//     * 
+//     *
 //     * When passed an action, it returns true if the user has the privilages
 //     * to perfrom that action and false if they do not
 //     * @version 2, stergatu add group_id variable in order to make it work for every group and not only current group
@@ -369,7 +373,7 @@ class BP_Group_Documents {
      * url()
      *
      * returns the full url of the document
-     * if $legacy_check is true (default) the function 
+     * if $legacy_check is true (default) the function
      * will check past locations if the file is not found
      */
 
@@ -427,7 +431,7 @@ class BP_Group_Documents {
     }
 
     /**
-     * 
+     *
      * @param type $legacy_check
      * @param type $create_folders
      * @return type
@@ -454,7 +458,7 @@ class BP_Group_Documents {
 
         /*         * *
          * if we're getting the existing file to display, it may not be there
-         * if file is not there, check in legacy locations 
+         * if file is not there, check in legacy locations
          */
         if ($legacy_check && !file_exists($document_path)) {
 
@@ -473,7 +477,7 @@ class BP_Group_Documents {
     /**
      * Prints documents categories
      * * @since version 0.5.4
-     * @version  1.4, 31/10/2013 
+     * @version  1.4, 31/10/2013
      * v1, 21/5/2013, stergatu
      */
     public function categories() {
@@ -513,7 +517,7 @@ class BP_Group_Documents {
     }
 
     /**
-     * 
+     *
      * @return boolean
      * @todo, 1/5/2013, make it search in a relative folder for icon images
      */
@@ -603,7 +607,7 @@ class BP_Group_Documents {
     }
 
     /**
-     * 
+     *
      * @global type $wpdb
      * @global type $bp
      * @param type $group_id
@@ -630,7 +634,7 @@ class BP_Group_Documents {
     }
 
     /**
-     * 
+     *
      * @global type $wpdb
      * @global type $bp
      * @param type $group_id
@@ -671,7 +675,7 @@ class BP_Group_Documents {
     }
 
     /**
-     * 
+     *
      * @global type $wpdb
      * @global type $bp
      * @param type $num
@@ -699,7 +703,7 @@ class BP_Group_Documents {
     }
 
     /**
-     * 
+     *
      * @global type $wpdb
      * @global type $bp
      * @param type $num
@@ -727,7 +731,7 @@ class BP_Group_Documents {
     }
 
     /**
-     * 
+     *
      * @global type $wpdp
      * @global type $bp
      * @param type $num
@@ -762,7 +766,7 @@ class BP_Group_Documents {
 
     /**
      * Creates the upload dir or and htaccess file
-     * 
+     *
      * @uses wp_mkdir_p() to create the dir
      * @uses insert_with_markers() to create the htaccess file
      * @since version 0.5

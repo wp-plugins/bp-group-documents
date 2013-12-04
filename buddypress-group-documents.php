@@ -1,10 +1,16 @@
 <?php
+// Exit if accessed directly
+if (!defined('ABSPATH'))
+    exit;
+
 /**
- * @author Stergatu Eleni 
+ * @author Stergatu Eleni
  * @since  0.5
- * @version 1.3 25/10/2013, fix the Fatal error: Call to undefined function get_home_path() 
- * changelog 
- * v4 17/9/2013, fix the  http://wordpress.org/support/topic/error-message-if-you-edit-groups?replies=1 bug
+ * @version 1.5 moved textdomain to loader.php 
+
+ * changelog
+ *v1.3 25/10/2013, fix the Fatal error: Call to undefined function get_home_path()
+ *  v4 17/9/2013, fix the  http://wordpress.org/support/topic/error-message-if-you-edit-groups?replies=1 bug
  * v3, 31/7/2013, change visibility to private
  * v2, 21/5/2013 fixed some bugs
  * v1, 7/3/2013
@@ -38,10 +44,7 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
 
             $this->admin_name = !empty($nav_page_name) ? $nav_page_name : __('Documents', 'bp-group-documents');
             $this->admin_slug = BP_GROUP_DOCUMENTS_SLUG;
-
-
-            $this->register_textdomain();
-
+           
             if ('mods_decide' != get_option('bp_group_documents_upload_permission')) {
                 $this->enable_create_step = false;
             } else {
@@ -111,119 +114,119 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
                 $parent_id = BP_Group_Documents_Template::get_parent_category_id();
                 $group_categories = get_terms('group-documents-category', array('parent' => $parent_id, 'hide_empty' => false));
                 ?>
-                                <!-- #group-documents-group-admin-categories -->
+                <!-- #group-documents-group-admin-categories -->
                 <div id="group-documents-group-admin-categories">
                     <label><?php
                         _e('Category List for', 'bp-group-documents');
                         echo ' ' . $this->name;
                         ?></label>
-                                                    <div>
-                                        <ul>
-                                            <?php
-                                            foreach ($group_categories as $category) {
-                                                if (isset($_GET['edit']) && ( $_GET['edit'] == $category->term_id )) {
-                                                    ?>
-                                                    <li id="category-<?php echo $category->term_id; ?>"><input type="text" name="group_documents_category_edit" value="<?php echo $category->name; ?>" />
-                                                        <input type="hidden" name="group_documents_category_edit_id" value="<?php echo $category->term_id; ?>" />
-                                                        <input type="submit" id="editCat" name="editCat" value="<?php _e('Update'); ?>" />
-                                                    </li>
-                                                    <?php
-                                                } elseif (isset($_GET['delete']) && ( $_GET['delete'] == $category->term_id )) {
-                                                    ?>
-                                                    <div class="bp_group_documents_question" ><?php printf(__('Are you sure you want to delete category <b>%s</b>?', 'bp-group-documents'), $category->name); ?>
-                                                        <br/>
-                                                        <?php
-                                                        printf(__('Any %s in the category will be left with no category.', 'bp-group-documents'), mb_strtolower($this->name));
-                                                        ?>
-                                                        <br/>
-                                                        <?php
-                                                        _e('You can later assign them to another  category.', 'bp-group-documents');
-                                                        ?>
-                                                        <input type="hidden" name="group_documents_category_del_id" value="<?php echo $category->term_id; ?>" />
-                                                        <input type="submit" value="<?php _e('Delete', 'buddypress'); ?>" id="delCat" name="delCat"/>
-                                                    </div>    
-                                                    <?php
-                                                } else {
-                                                    $edit_link = wp_nonce_url($action_link . '?edit=' . $category->term_id, 'group_documents_category_edit');
-                                                    $delete_link = wp_nonce_url($action_link . '?delete=' . $category->term_id, 'group_documents_category_delete');
-                                                    ?>
-                                                    <li id="category-<?php echo $category->term_id; ?>"><strong><?php echo $category->name; ?></strong>
-                                                        &nbsp; <a class="group-documents-category-edit" href="<?php echo $edit_link; ?>"><?php _e('Edit', 'bp-group-documents'); ?></a>
-                                                        <a class="group-documents-category-delete" href="<?php echo $delete_link; ?>"><?php _e('Delete', 'bp-group-documents'); ?></a>
-                                                    </li>
-                                                    <?php
-                                                }
-                                            }
-                                            ?>
-                                            <li><input type="text" name="bp_group_documents_new_category" class="bp-group-documents-new-category" />
-                                                <input type="submit" value="<?php _e('Add'); ?>" id="addCat" name="addCat"/></li>
-                                        </ul>
+                    <div>
+                        <ul>
+                            <?php
+                            foreach ($group_categories as $category) {
+                                if (isset($_GET['edit']) && ( $_GET['edit'] == $category->term_id )) {
+                                    ?>
+                                    <li id="category-<?php echo $category->term_id; ?>"><input type="text" name="group_documents_category_edit" value="<?php echo $category->name; ?>" />
+                                        <input type="hidden" name="group_documents_category_edit_id" value="<?php echo $category->term_id; ?>" />
+                                        <input type="submit" id="editCat" name="editCat" value="<?php _e('Update'); ?>" />
+                                    </li>
+                                    <?php
+                                } elseif (isset($_GET['delete']) && ( $_GET['delete'] == $category->term_id )) {
+                                    ?>
+                                    <div class="bp_group_documents_question" ><?php printf(__('Are you sure you want to delete category <b>%s</b>?', 'bp-group-documents'), $category->name); ?>
+                                        <br/>
+                                        <?php
+                                        printf(__('Any %s in the category will be left with no category.', 'bp-group-documents'), mb_strtolower($this->name));
+                                        ?>
+                                        <br/>
+                                        <?php
+                                        _e('You can later assign them to another  category.', 'bp-group-documents');
+                                        ?>
+                                        <input type="hidden" name="group_documents_category_del_id" value="<?php echo $category->term_id; ?>" />
+                                        <input type="submit" value="<?php _e('Delete', 'buddypress'); ?>" id="delCat" name="delCat"/>
                                     </div>
-                                </div><!-- end #group-documents-group-admin-categories -->
-                                <?php
+                                    <?php
+                                } else {
+                                    $edit_link = wp_nonce_url($action_link . '?edit=' . $category->term_id, 'group_documents_category_edit');
+                                    $delete_link = wp_nonce_url($action_link . '?delete=' . $category->term_id, 'group_documents_category_delete');
+                                    ?>
+                                    <li id="category-<?php echo $category->term_id; ?>"><strong><?php echo $category->name; ?></strong>
+                                        &nbsp; <a class="group-documents-category-edit" href="<?php echo $edit_link; ?>"><?php _e('Edit', 'bp-group-documents'); ?></a>
+                                        <a class="group-documents-category-delete" href="<?php echo $delete_link; ?>"><?php _e('Delete', 'bp-group-documents'); ?></a>
+                                    </li>
+                                    <?php
+                                }
                             }
-                            do_action('bp_group_documents_group_admin_edit');
-                            ?> 
-                            &nbsp;<p>
-                                <input type="submit" value="<?php _e('Save Changes', 'buddypress') ?> &rarr;" id="save" name="save" />
-                                <input type="hidden" name="delCat" value="" />
-                            </p>   
-                            <?php
-                            wp_nonce_field('groups_edit_save_' . $this->slug);
-                        }
-
-                        function edit_create_markup($gid) {
-                            global $bp;
-
-                            //only show the upload persmissions if the site admin allows this to be changed at group-level
                             ?>
-                            <p><label><?php _e('Upload Permissions:', 'bp-group-documents'); ?></label></p>
-                            <p>
-                                <?php
-                                $netadminDecision = get_option('bp_group_documents_upload_permission');
-                                switch ($netadminDecision) {
-                                    case 'mods_decide':
-                                        $upload_permission = groups_get_groupmeta($gid, 'bp_group_documents_upload_permission');
-                                        ?><input type="radio" name="bp_group_documents_upload_permission" value="members" 
-                                               <?php if ('members' == $upload_permission) echo 'checked="checked"'; ?> />
-                                        <?php _e('All Group Members', 'bp-group-documents'); ?><br />
-                                        <input type="radio" name="bp_group_documents_upload_permission" value="mods_only" 
-                                               <?php if (!('members' == $upload_permission)) echo 'checked="checked"'; ?> />
-                                               <?php
-                                               _e("Only Group's Administrators and Moderators", 'bp-group-documents');
-                                               break;
-                                           case 'members':
-                                               _e('All Group Members', 'bp-group-documents');
-                                               break;
-                                           case 'mods_only':
-                                           default:
-                                               _e("Only Group's Administrators and Moderators", 'bp-group-documents');
-                                               break;
-                                       }
-                                       ?>
-                            </p>
-                            <?php
-                        }
+                            <li><input type="text" name="bp_group_documents_new_category" class="bp-group-documents-new-category" />
+                                <input type="submit" value="<?php _e('Add'); ?>" id="addCat" name="addCat"/></li>
+                        </ul>
+                    </div>
+                </div><!-- end #group-documents-group-admin-categories -->
+                <?php
+            }
+            do_action('bp_group_documents_group_admin_edit');
+            ?>
+            &nbsp;<p>
+                <input type="submit" value="<?php _e('Save Changes', 'buddypress') ?> &rarr;" id="save" name="save" />
+                <input type="hidden" name="delCat" value="" />
+            </p>
+            <?php
+            wp_nonce_field('groups_edit_save_' . $this->slug);
+        }
 
-                        /**
-                         * The routine run after the user clicks Save from your admin tab
-                         * @version v1.4, 31/10/2013, fix some notices
-                         * v3,  27/8/2013, fix the messages
-                         * v2, 21/5/2013, fix the edit and delete category bug, Stergatu Eleni 
-                         * @since 0.5 
-                         */
-                        function edit_screen_save() {
-                            global $bp;
-                            do_action('bp_group_documents_group_admin_save');
-                            $message = false;
-                            $type = '';
+        function edit_create_markup($gid) {
+            global $bp;
 
-                            $parent_id = BP_Group_Documents_Template::get_parent_category_id();
-                            if ((!isset($_POST['save'])) && (!isset($_POST['addCat'])) && (!isset($_POST['editCat'])) && (!isset($_POST['delCat']))) {
-                                return false;
-                            }
+            //only show the upload persmissions if the site admin allows this to be changed at group-level
+            ?>
+            <p><label><?php _e('Upload Permissions:', 'bp-group-documents'); ?></label></p>
+            <p>
+                <?php
+                $netadminDecision = get_option('bp_group_documents_upload_permission');
+                switch ($netadminDecision) {
+                    case 'mods_decide':
+                        $upload_permission = groups_get_groupmeta($gid, 'bp_group_documents_upload_permission');
+                        ?><input type="radio" name="bp_group_documents_upload_permission" value="members"
+                               <?php if ('members' == $upload_permission) echo 'checked="checked"'; ?> />
+                        <?php _e('All Group Members', 'bp-group-documents'); ?><br />
+                        <input type="radio" name="bp_group_documents_upload_permission" value="mods_only"
+                               <?php if (!('members' == $upload_permission)) echo 'checked="checked"'; ?> />
+                               <?php
+                               _e("Only Group's Administrators and Moderators", 'bp-group-documents');
+                               break;
+                           case 'members':
+                               _e('All Group Members', 'bp-group-documents');
+                               break;
+                           case 'mods_only':
+                           default:
+                               _e("Only Group's Administrators and Moderators", 'bp-group-documents');
+                               break;
+                       }
+                       ?>
+            </p>
+            <?php
+        }
 
-                            check_admin_referer('groups_edit_save_' . $this->slug);
+        /**
+         * The routine run after the user clicks Save from your admin tab
+         * @version v1.4, 31/10/2013, fix some notices
+         * v3,  27/8/2013, fix the messages
+         * v2, 21/5/2013, fix the edit and delete category bug, Stergatu Eleni
+         * @since 0.5
+         */
+        function edit_screen_save() {
+            global $bp;
+            do_action('bp_group_documents_group_admin_save');
+            $message = false;
+            $type = '';
+
+            $parent_id = BP_Group_Documents_Template::get_parent_category_id();
+            if ((!isset($_POST['save'])) && (!isset($_POST['addCat'])) && (!isset($_POST['editCat'])) && (!isset($_POST['delCat']))) {
+                return false;
+            }
+
+            check_admin_referer('groups_edit_save_' . $this->slug);
             //check if category was deleted
             if (isset($_POST['group_documents_category_del_id']) &&
                     ctype_digit($_POST['group_documents_category_del_id']) &&
@@ -279,7 +282,7 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
         /**
          * @version 1, 25/4/2013
          * @since version 0.5
-         * @author Stergatu 
+         * @author Stergatu
          */
         function display() {
             do_action('bp_group_documents_display');
@@ -292,7 +295,7 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
          * Add a metabox to the admin Edit group screen
          * @since 0.5
          * @version 1, 30/4/2013, stergatu
-         * 
+         *
          */
         function admin_screen($group_id) {
             $this->edit_create_markup($group_id);
@@ -318,19 +321,20 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
 
         function widget_display() {
             ?>
-                        <div class="info-group">
-                            <h4><?php echo esc_attr($this->name) ?></h4>
-                            <p>
-                                Not yet implemented
-                            </p>
-                        </div>
+            <div class="info-group">
+                <h4><?php echo esc_attr($this->name) ?></h4>
+                <p>
+                    Not yet implemented
+                </p>
+            </div>
             <?php
         }
 
         /**
-         * @author Stergatu Eleni  
+         * @author Stergatu Eleni
          * @since 0.5
          * @version 1, 6/3/2013
+         * @deprecated since version 1.5
          */
         function register_textdomain() {
             //load i18n files if present
@@ -343,7 +347,7 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
     }
 
     /**
-     * @author Stergatu Eleni  
+     * @author Stergatu Eleni
      * @since 0.5
      * @version 1.3, 25/10/2013 Makes sure the get_home_path function is defined before trying to use it
      * v1.2.2 remove admin-uploads.php file

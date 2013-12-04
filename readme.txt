@@ -3,7 +3,7 @@ Contributors: lenasterg
 Tags: wpms, buddypress, group, document, plugin, file, media, storage, upload, widget
 Requires at least: WP 3.5, BuddyPress 1.7
 Tested up to: 3.7.1, BuddyPress 1.8.1
-Stable tag: 1.4 (Requires at least: WP 3.5, BuddyPress 1.7)
+Stable tag: 1.5 (Requires at least: WP 3.5, BuddyPress 1.7)
 License: GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q4VCLDW4BFW6L
 
@@ -64,6 +64,11 @@ If you run a windows server and you get errors about mb_convert_case  function w
 
 
 == Changelog ==
+= Version 1.5 (December 4, 2013) =
+* New feature: Into the Administration screen of the Activity component, the admin can filter activity for New group files and Edited group files. Based on @imath 's   http://codex.buddypress.org/plugindev/add-custom-filters-to-loops-and-enjoy-them-within-your-plugin/
+* Now supports custom tranlation files placed into WP_LANG_DIR . '/bp-group-documents/' . $domain . '-' . $locale . '.mo')
+
+
 = Version 1.4 (October 31, 2013) =
 * Fix a bug which marked some themes as Broken in some installations.
 

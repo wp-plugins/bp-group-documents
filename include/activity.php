@@ -1,4 +1,7 @@
 <?php
+// Exit if accessed directly
+if (!defined('ABSPATH'))
+    exit;
 
 /**
  * bp_group_documents_record_add()
@@ -142,9 +145,9 @@ function bp_group_documents_delete_activity($args = true) {
  * 
  *  Add Buddypress Groups Documents activity types to the activity filter dropdown
  *  @since 0.4.3
- * @version 2, 13/5/2013, stergatu 
+ * @version 1.5, 4/12/2013, stergatu, chanced name in order to avoid conficts with other plugins
  */
-function activity_filter_options() {
+function bp_group_documents_activity_filter_options() {
     global $bp;
     $nav_page_name = get_option('bp_group_documents_nav_page_name');
     $name = !empty($nav_page_name) ? $nav_page_name : __('Documents', 'bp-group-documents');
@@ -155,11 +158,11 @@ function activity_filter_options() {
     <?php
 }
 
-$dropdowns = apply_filters('bp_docs_activity_filter_locations', array(
+$dropdowns = apply_filters('bp_group_documents_activity_filter_locations', array(
     'bp_activity_filter_options',
     'bp_group_activity_filter_options',
     'bp_member_activity_filter_options'
         ));
 foreach ($dropdowns as $hook) {
-    add_action($hook, 'activity_filter_options');
+    add_action($hook, 'bp_group_documents_activity_filter_options');
 }

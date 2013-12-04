@@ -1,4 +1,7 @@
 <?php
+// Exit if accessed directly
+if (!defined('ABSPATH'))
+    exit;
 
 /**
  * bp_group_documents_screen_notification_settings()

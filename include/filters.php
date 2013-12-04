@@ -1,4 +1,7 @@
 <?php
+// Exit if accessed directly
+if (!defined('ABSPATH'))
+    exit;
 
 add_filter('bp_group_documents_name_out', 'htmlspecialchars');
 add_filter('bp_group_documents_description_out', 'stripslashes');

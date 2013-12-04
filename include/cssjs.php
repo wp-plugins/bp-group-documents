@@ -1,4 +1,7 @@
 <?php
+// Exit if accessed directly
+if (!defined('ABSPATH'))
+    exit;
 
 /**
  * bp_group_documents_front_cssjs()
@@ -12,7 +15,6 @@ function bp_group_documents_front_cssjs() {
 
     //if we're on a group page
     if ($bp->current_component == $bp->groups->slug) {
-
         wp_enqueue_script('bp-group-documents', WP_PLUGIN_URL . '/' . BP_GROUP_DOCUMENTS_DIR . '/js/general.js', array('jquery'), BP_GROUP_DOCUMENTS_VERSION);
         wp_localize_script('bp-group-documents', 'l10nBpGrDocuments', array(
             'new_category' => __('New Category...!', 'bp-group-documents'),
@@ -20,10 +22,6 @@ function bp_group_documents_front_cssjs() {
             'sure_to_delete_document' => __('Are you sure you wish to permanently delete this document?', 'bp-group-documents'),
             'add'=>__('Add','bp-group-documents'),
         ));
-
-
-
-
 
 
         wp_register_style('bp-group-documents', WP_PLUGIN_URL . '/' . BP_GROUP_DOCUMENTS_DIR . '/css/style.css', false, BP_GROUP_DOCUMENTS_VERSION);
@@ -48,7 +46,7 @@ add_action('wp_enqueue_scripts', 'bp_group_documents_front_cssjs');
  *
  * This function will enqueue the css and js files for the admin back-end
  * @version 1.2.2, remove admin.js call
- 
+ * @deprecated since 1.5
  */
 function bp_group_documents_admin_cssjs() {
     wp_enqueue_style('bp-group-documents-admin', WP_PLUGIN_URL . '/' . BP_GROUP_DOCUMENTS_DIR . '/css/admin.css');
@@ -56,4 +54,3 @@ function bp_group_documents_admin_cssjs() {
 
 //changed with chriskeeble suggestion
 add_action('admin_head', 'bp_group_documents_admin_cssjs');
-?>
