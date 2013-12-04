@@ -19,7 +19,7 @@
 
 //some constants that can be checked when extending this plugin
 define('BP_GROUP_DOCUMENTS_IS_INSTALLED', 1);
-define('BP_GROUP_DOCUMENTS_VERSION', '1.2.3');
+define('BP_GROUP_DOCUMENTS_VERSION', '1.4');
 define('BP_GROUP_DOCUMENTS_DB_VERSION', '5');
 define('BP_GROUP_DOCUMENTS_VALID_FILE_FORMATS', 'odt,rtf,txt,doc,docx,xls,xlsx,ppt,pps,pptx,pdf,jpg,jpeg,gif,png,zip,tar,gz');
 define('BP_GROUP_DOCUMENTS_ITEMS_PER_PAGE', 20);
