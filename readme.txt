@@ -2,16 +2,14 @@
 Contributors: lenasterg
 Tags: wpms, buddypress, group, document, plugin, file, media, storage, upload, widget
 Requires at least: WP 3.5, BuddyPress 1.7
-Tested up to: 3.7.1, BuddyPress 1.9
-Stable tag: 1.7 (Requires at least: WP 3.5, BuddyPress 1.7)
+Tested up to: 3.9.2, BuddyPress 2.0.1
+Stable tag: 1.8 (Requires at least: WP 3.5, BuddyPress 1.7)
 License: GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q4VCLDW4BFW6L
 
 BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document.
 
 == Description ==
-Original plugin is <a href="http://wordpress.org/extend/plugins/buddypress-group-documents/">no longer supported</a> so revised.
-
 BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document. This allows members of BuddyPress groups to upload and store files and documents that are relevant to the group.
 
 Documents can be edited and deleted either by the document owner or by the group administrator.
@@ -22,7 +20,9 @@ Group members and moderators can receive email notifications at their option.
 The group administrator can decide if all members or only admins/moderators can upload documents (Since v0.5)
 User verification for Downloads: when a document is downloaded, a redirect page checks is the user is member of the group (in case of a private  or hidden groups) and only then the user can download the file.(Since v0.5)
 3 Widgets: "User's groups documents" (since v0.5) ,"Recent Uploads" , "Popular Downloads"  can be used to show activity at a glance.
-Contributions by Lena Stergatu for WP 3.3, with additional bug fixes and improvements by Keeble Smith (http://keeblesmith.com) and Anton Andreasson work for BP 1.7. Original plugin author Peter Anselmo.
+Contributions by Lena Stergatu for WP 3.3, with additional bug fixes and improvements by Keeble Smith (http://keeblesmith.com) and Anton Andreasson work for BP 1.7.
+
+Original plugin is <a href="http://wordpress.org/extend/plugins/buddypress-group-documents/">no longer supported</a> so revised. Original plugin author Peter Anselmo.
 
 PLEASE: If you have any issues or it doesn't work for you, please report in support forum.  It doesn't help anyone to mark "broken" without asking around.  Thanks!
 
@@ -64,6 +64,9 @@ If you run a windows server and you get errors about mb_convert_case  function w
 
 
 == Changelog ==
+= Version 1.8 (September 1, 2014) =
+* Fix Sort - "Order by" & Filter - "Category" which was not working with Pagination. Thanks to @wp4yd for reporting.
+
 = Version 1.7 (April 22, 2014) =
 * Add new widget: BP_Group_Documents_CurrentGroup_Widget. If the theme support different sidebars for group pages, it can be used to show current group's documents.
 * Fix some minor issues in widgets

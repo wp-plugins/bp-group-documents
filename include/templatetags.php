@@ -54,7 +54,7 @@ class BP_Group_Documents_Template {
     }
 
     /**
-     * 
+     *
      * @global type $bp
      * @return type
      */
@@ -126,7 +126,7 @@ class BP_Group_Documents_Template {
     }
 
     /**
-     * 
+     *
      * @global type $bp
      * @param type $document
      */
@@ -148,12 +148,12 @@ class BP_Group_Documents_Template {
     }
 
     /**
-     * 
+     *
      * @global type $bp
      * @version 1.2.2 add security, fix misplayed error messages
      * v1.2.1, 1/8/2013, stergatu, implement  direct call to  add document functionality
      * @since version 0.8
-     * 
+     *
      */
     private function do_url_logic() {
         global $bp;
@@ -168,7 +168,7 @@ class BP_Group_Documents_Template {
             $this->show_detail = 1;
         }
         //if we're editing, grab existing data
-//          
+//
         if (($bp->current_action == BP_GROUP_DOCUMENTS_SLUG)) {
             if (count($bp->action_variables) > 0) {
                 //stergatu add on 1/8/2013
@@ -258,7 +258,7 @@ class BP_Group_Documents_Template {
     }
 
     /**
-     * 
+     *
      * @global type $bp
      * @param type $not_empty
      * @return type
@@ -313,8 +313,8 @@ class BP_Group_Documents_Template {
     }
 
     /**
-     * @author  
-     * @since  
+     * @author
+     * @since
      */
     private function do_paging_logic() {
         global $bp;
