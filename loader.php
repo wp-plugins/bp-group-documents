@@ -10,7 +10,7 @@
   Requires at least: WP 3.5.1, BuddyPress 1.6.5
   Tested up to: WP 3.9.2, BuddyPress 2.0.1
   License:  GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
-  Author: <a href="http://lenasterg.wordpress.com">lenasterg</a>, since v. 0.4.3.3. with additional bug fixing and improvements by <a href="http://keeblesmith.com">Keeble Smith</a>. Original plugin author Peter Anselmo, Studio66.
+  Author: NTS on cti.gr, <a href="http://lenasterg.wordpress.com">lenasterg</a>, since v. 0.4.3.3. with additional bug fixing and improvements by <a href="http://keeblesmith.com">Keeble Smith</a>. Original plugin author Peter Anselmo, Studio66.
 
   Network Only: true
  * @todo minor, make a deregister function, 26/4/2013 stergatu
