@@ -35,13 +35,13 @@ add_filter('group_forum_topic_text_before_save', 'bp_group_documents_forum_attac
 add_filter('group_forum_post_text_before_save', 'bp_group_documents_forum_attachments_topic_text', 10, 1);
 
 
-/** 
- * 
+/**
+ *
  * @global type $bp
  * @param type $topic_text
  * @return type
  * @version 1.2.2, stergatu 3/10/2013, sanitize_text_field
- * @since 
+ * @since
  */
 function bp_group_documents_forum_attachments_topic_text($topic_text) {
     global $bp;
@@ -74,7 +74,7 @@ function bp_group_documents_forum_attachments_document_link($document) {
     $html .= "</a>";
 
     if (BP_GROUP_DOCUMENTS_SHOW_DESCRIPTIONS && $document->description) {
-        $html .= "<br /><span class='group-documents-description'>" . nl2br($document->description) . "</span>";
+        $html .= "<br /><span class='group-documents-description'>" . nl2br( stripslashes_deep( $document->description ) ) . "</span>";
     }
 
     return apply_filters('bp_group_documents_forum_document_link', $html, $document);

@@ -6,7 +6,7 @@ if (!defined('ABSPATH'))
 /**
  * @author Stergatu Eleni
  * @since  0.5
- * @version 1.5 moved textdomain to loader.php 
+ * @version 1.5 moved textdomain to loader.php
 
  * changelog
  *v1.3 25/10/2013, fix the Fatal error: Call to undefined function get_home_path()
@@ -44,7 +44,7 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
 
             $this->admin_name = !empty($nav_page_name) ? $nav_page_name : __('Documents', 'bp-group-documents');
             $this->admin_slug = BP_GROUP_DOCUMENTS_SLUG;
-           
+
             if ('mods_decide' != get_option('bp_group_documents_upload_permission')) {
                 $this->enable_create_step = false;
             } else {
@@ -90,8 +90,8 @@ if (class_exists('BP_Group_Extension')) : // Recommended, to prevent problems du
             if (!$success)
                 bp_core_add_message(__('There was an error saving, please try again', 'buddypress'), 'error');
             else
-                bp_core_add_message(__('Settings saved successfully', 'buddypress'));
-            do_action('bp_group_documents_group_after_create_save');
+                bp_core_add_message( __( 'Settings Saved.', 'buddypress' ) );
+	    do_action('bp_group_documents_group_after_create_save');
         }
 
         /**

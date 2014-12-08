@@ -477,18 +477,22 @@ class BP_Group_Documents {
     /**
      * Prints documents categories
      * * @since version 0.5.4
-     * @version  1.4, 31/10/2013
+     * @version 3, 8/12/2014 fix category link
+     * v2, 12/11/2014, category link added
      * v1, 21/5/2013, stergatu
      */
     public function categories() {
-        $toprint = '';
+	$bp = buddypress();
+	$toprint = '';
         $categories_of_document = $this->get_document_categories();
-        if (!empty($categories_of_document)) {
+	$group = groups_get_group( array( 'group_id' => $this->group_id ) );
+
+	if (!empty($categories_of_document)) {
             if (!is_wp_error($categories_of_document)) {
                 _e('In category:', 'bp-group-documents');
                 foreach ($categories_of_document as $term) {
-                    $toprint.=' <b>' . $term->name . '</b>,';
-                }
+                    $toprint.=' <b><a href="' . bp_get_group_permalink( $group ) . BP_GROUP_DOCUMENTS_SLUG . '?category=' . $term->term_id . '">' . wp_kses( stripslashes( $term->name ), wp_kses_allowed_html( 'post' ) ) . '</a></b>,';
+		}
                 echo substr($toprint, 0, -1) . '. <br/>';
             }
         }
@@ -598,10 +602,17 @@ class BP_Group_Documents {
 
     /* Static Functions */
 
+    /**
+     * Get documents ids for the current group
+     * @global type $wpdb
+     * @return type
+     * @version 2, 12/11/2014
+     */
     public static function get_ids_in_current_group() {
-        global $wpdb, $bp;
+        global $wpdb;
+	$bp = buddypress();
 
-        $group_id = $bp->groups->current_group->id;
+	$group_id = $bp->groups->current_group->id;
 
         return $wpdb->get_col($wpdb->prepare("SELECT id FROM " . BP_GROUP_DOCUMENTS_TABLE . " WHERE group_id = %d", $group_id));
     }
@@ -609,16 +620,15 @@ class BP_Group_Documents {
     /**
      *
      * @global type $wpdb
-     * @global type $bp
      * @param type $group_id
      * @param type $category
      * @return type
      * @version 1.2.2.
      */
     public static function get_total($group_id, $category = false) {
-        global $wpdb, $bp;
-
-        $sql = "SELECT COUNT(*) FROM " . BP_GROUP_DOCUMENTS_TABLE . " WHERE group_id = %d ";
+        global $wpdb;
+	$bp = buddypress();
+	$sql = "SELECT COUNT(*) FROM " . BP_GROUP_DOCUMENTS_TABLE . " WHERE group_id = %d ";
         if ($category) {
             //grab all object id's in the passed category
             $category_ids = get_objects_in_term($category, 'group-documents-category');

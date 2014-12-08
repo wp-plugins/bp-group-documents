@@ -1,10 +1,11 @@
 ===BP Group Documents  ===
-Contributors: lenasterg, NTS on cti.gr
+Contributors: lenasterg
 Tags: wpms, buddypress, group, document, plugin, file, media, storage, upload, widget
 Requires at least: WP 3.5, BuddyPress 1.7
 Tested up to: 3.9.2, BuddyPress 2.0.1
-Stable tag: 1.8 (Requires at least: WP 3.5, BuddyPress 1.7)
+Stable tag: 1.9 (Requires at least: WP 3.5, BuddyPress 1.7)
 License: GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q4VCLDW4BFW6L
 
 BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document.
 
@@ -63,6 +64,11 @@ If you run a windows server and you get errors about mb_convert_case  function w
 
 
 == Changelog ==
+= Version 1.9 (8/12/2014)
+* Category link added in documents list.
+* Escaping fix. Strip slashes on the way out, so that file titles and descriptions don't have so many unnecessary backslashes. Thanks to @jreeve for patch.
+
+
 = Version 1.8 (September 1, 2014) =
 * Fix Sort - "Order by" & Filter - "Category" which was not working with Pagination. Thanks to @wp4yd for reporting.
 

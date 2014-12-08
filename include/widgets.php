@@ -429,9 +429,15 @@ class BP_Group_Documents_Newest_Widget extends WP_Widget {
                         }
                     }
 
-                    function widget( $args , $instance ) {
-                        global $bp ;
-                        $instance[ 'group_id' ] = bp_get_current_group_id() ;
+                    /**
+     *
+     * @param type $args
+     * @param array $instance
+     * @version 2, 24/4/2014
+     */
+    function widget( $args , $instance ) {
+                        $bp = buddypress() ;
+        $instance[ 'group_id' ] = bp_get_current_group_id() ;
 
                         if ( $instance[ 'group_id' ] > 0 ) {
                             $group = $bp->groups->current_group ;
