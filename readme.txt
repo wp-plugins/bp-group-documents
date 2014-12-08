@@ -64,7 +64,7 @@ If you run a windows server and you get errors about mb_convert_case  function w
 
 
 == Changelog ==
-= Version 1.9 (8/12/2014)
+= Version 1.9 (8/12/2014) =
 * Category link added in documents list.
 * Escaping fix. Strip slashes on the way out, so that file titles and descriptions don't have so many unnecessary backslashes. Thanks to @jreeve for patch.
 
