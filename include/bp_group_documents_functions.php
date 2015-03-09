@@ -15,17 +15,14 @@ if ( ! defined( 'ABSPATH' ) )
  * version 2.0 7/3/2013 Stergatu
  */
 function bp_group_documents_display() {
-    global $bp;
     bp_group_documents_display_content();
 }
 
 /**
  *
- * @global type $bp
  * @version 2.0, 13/5/2013, stergatu
  */
 function bp_group_documents_display_header() {
-    global $bp;
     $nav_page_name = get_option( 'bp_group_documents_nav_page_name' );
 
     $name = ! empty( $nav_page_name ) ? $nav_page_name : __( 'Documents', 'bp-group-documents' );
@@ -42,12 +39,11 @@ function bp_group_documents_display_title() {
 
 /**
  *
- * @global type $bp
  * @version 1.2.2, 3/10/2013, stergatu esc_textarea
  * v2, 21/5/2013, stergatu, added documents categories
  */
 function bp_group_documents_display_content() {
-    global $bp;
+    $bp = buddypress();
 
     //instanciating the template will do the heavy lifting with all the superglobal variables
     $template = new BP_Group_Documents_Template();
@@ -62,8 +58,8 @@ function bp_group_documents_display_content() {
             <div class="item-list-tabs no-ajax" id="subnav" role="navigation">
 		<?php if ( get_option( 'bp_group_documents_use_categories' ) ) { ?>
 		    <div id="bp-group-documents-categories">
-			<form id="bp-group-documents-category-form" method="get" action="<?php echo $template->action_link; ?>">
-			    &nbsp; <?php echo __( 'Category:', 'bp-group-documents' ); ?>
+			<form class="standard-form" id="bp-group-documents-category-form" method="get" action="<?php echo $template->action_link; ?>">
+				    &nbsp; <?php echo __( 'Category:', 'bp-group-documents' ); ?>
 			    <select name="category">
 				<option value="" ><?php echo __( 'All', 'bp-group-documents' ); ?></option>
 				<?php foreach ( $template->get_group_categories() as $category ) { ?>
@@ -78,7 +74,7 @@ function bp_group_documents_display_content() {
 			</div>
 		    <?php } ?>
     		<div id="bp-group-documents-sorting">
-    		    <form id="bp-group-documents-sort-form" method="get" action="<?php echo $template->action_link; ?>">
+		    <form class="standard-form" id="bp-group-documents-sort-form" method="get" action="<?php echo $template->action_link; ?>">
 			    <?php _e( 'Order by:', 'bp-group-documents' ); ?>
     			<select name="order" id="order">
     			    <option value="newest" <?php
@@ -440,4 +436,4 @@ function bp_group_documents_display_content() {
 		    }
 		}
 
-		add_action( 'bp_group_documents_template_do_sorting_logic', 'bp_group_documents_set_cookies' );
+	    add_action( 'wp', 'bp_group_documents_set_cookies' );

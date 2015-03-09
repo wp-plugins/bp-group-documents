@@ -52,7 +52,7 @@ class BP_Group_Documents_Newest_Widget extends WP_Widget {
     var $bp_group_documents_name;
 
     public function __construct() {
-	global $bp;
+	$bp = buddypress();
 	$nav_page_name = get_option( 'bp_group_documents_nav_page_name' );
 	$this->bp_group_documents_name = mb_convert_case(  ! empty( $nav_page_name ) ? $nav_page_name : __( 'Documents', 'bp-group-documents' ), MB_CASE_LOWER );
 	parent::__construct(
@@ -68,7 +68,7 @@ class BP_Group_Documents_Newest_Widget extends WP_Widget {
      *
      */
     function widget( $args, $instance ) {
-	global $bp;
+	$bp = buddypress();
 	extract( $args );
 	$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? sprintf( __( 'Recent Group %s', 'bp-group-documents' ), $this->bp_group_documents_name ) : sanitize_text_field( $instance['title'] )  );
 	echo $before_widget;
@@ -181,8 +181,8 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
     var $bp_group_documents_name;
 
 	    function __construct() {
-		global $bp;
-		$nav_page_name = get_option( 'bp_group_documents_nav_page_name' );
+		$bp = buddypress();
+	$nav_page_name = get_option( 'bp_group_documents_nav_page_name' );
 		$this->bp_group_documents_name = mb_convert_case(  ! empty( $nav_page_name ) ? $nav_page_name : __( 'Documents', 'bp-group-documents' ), MB_CASE_LOWER );
 		parent::__construct(
 			'bp_group_documents_popular_widget', '(BP Group Documents) ' . sprintf( __( 'Popular Group %s', 'bp-group-documents' ), $this->bp_group_documents_name ), // Name
@@ -196,9 +196,9 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
 	    }
 
 	    function widget( $args, $instance ) {
-		global $bp;
+		$bp = buddypress();
 
-		extract( $args );
+	extract( $args );
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? sprintf( __( 'Popular Group %s', 'bp-group-documents' ), $this->bp_group_documents_name ) : sanitize_text_field( $instance['title'] )  );
 
 		echo $before_widget . $before_title . $title . $after_title;
@@ -314,8 +314,8 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
     var $bp_group_documents_name;
 
 	    function __construct() {
-		global $bp;
-		$nav_page_name = get_option( 'bp_group_documents_nav_page_name' );
+		$bp = buddypress();
+	$nav_page_name = get_option( 'bp_group_documents_nav_page_name' );
 		$this->bp_group_documents_name = ! empty( $nav_page_name ) ? $nav_page_name : __( 'Documents', 'bp-group-documents' );
 		parent::__construct(
 			'bp_group_documents_usergroups_widget', '(BP Group Documents) ' . sprintf( __( '%s in your groups', 'bp-group-documents' ), $this->bp_group_documents_name ), // Name
@@ -329,8 +329,8 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
 	    }
 
 	    function widget( $args, $instance ) {
-		global $bp;
-		//only show widget to logged in users
+		$bp = buddypress();
+	//only show widget to logged in users
 		if ( ! is_user_logged_in() )
 		    return;
 
@@ -415,8 +415,8 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
 		var $bp_group_documents_name;
 
 		function __construct() {
-		    global $bp;
-		    $nav_page_name = get_option( 'bp_group_documents_nav_page_name' );
+		    $bp = buddypress();
+	$nav_page_name = get_option( 'bp_group_documents_nav_page_name' );
 		    $this->bp_group_documents_name = ! empty( $nav_page_name ) ? $nav_page_name : __( 'Documents', 'bp-group-documents' );
 		    parent::__construct(
 			    'bp_group_documents_current_group_widget', '(BP Group Documents) ' . sprintf( __( '%s in this group', 'bp-group-documents' ), $this->bp_group_documents_name ), // Name
@@ -478,13 +478,15 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
 					    } else {
 						echo '<div class="widget-error">' . sprintf( __( 'There are no %s to display.', 'bp-group-documents' ), $this->bp_group_documents_name ) . '</div></p>';
 					    }
-					    if ( BP_Group_Documents::current_user_can( 'add', $instance['group_id'] ) ) {
+		if ( is_user_logged_in() ) {
+		    if ( BP_Group_Documents::current_user_can( 'add', $instance['group_id'] ) ) {
 						$url =  bp_get_group_permalink( $bp->groups->current_group ) . BP_GROUP_DOCUMENTS_SLUG . '/add';
 		    ?>
 		    		    							<div class="generic-button group-button public"><a href="<?php echo $url; ?>" class="generic-button"><?php _e( "Add New", 'buddypress' ); ?></a></div>
 									    <?php
 					    }
-					    echo '<div class="view-all"><a href="' . bp_get_group_permalink( $bp->groups->current_group ) . BP_GROUP_DOCUMENTS_SLUG . '#object-nav">' . __( "View all", 'bp-group-documents' ) . '</a></div>';
+		}
+		echo '<div class="view-all"><a href="' . bp_get_group_permalink( $bp->groups->current_group ) . BP_GROUP_DOCUMENTS_SLUG . '#object-nav">' . __( "View all", 'bp-group-documents' ) . '</a></div>';
 					    echo $after_widget;
 					}
 				    }

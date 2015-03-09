@@ -27,10 +27,10 @@ jQuery(document).ready( function($) {
 	$('input.bp-group-documents-new-category').val(l10nBpGrDocuments.new_category).css('color','#999').focus(function(){
 		$(this).val('').css('color','inherit');
 	});
-		
+
 	//check for presence of a file before submitting form
 	$('form#bp-group-documents-form').submit(function(){
-		
+
 		//check for pre-filled values, and remove before sumitting
 		if( $('input.bp-group-documents-new-category').val() === l10nBpGrDocuments.new_category ) {
 			$('input.bp-group-documents-new-category').val('');
@@ -42,11 +42,11 @@ jQuery(document).ready( function($) {
 			alert(l10nBpGrDocuments.no_file_selected);
 			return false;
 		}
-	});	
+	});
 
 	//validate group admin form before submitting
 	$('form#group-settings-form').submit(function() {
-		
+
 		//check for pre-filled values, and remove before sumitting
 		if( $('input.bp-group-documents-new-category').val() === l10nBpGrDocuments.new_category  ) {
 			$('input.bp-group-documents-new-category').val('');
@@ -58,21 +58,7 @@ jQuery(document).ready( function($) {
 		return confirm(l10nBpGrDocuments.sure_to_delete_document);
 	});
 
-	//Track when a user clicks a document via Ajax
-	$('a.bp-group-documents-title').add($('a.bp-group-documents-icon')).click(function(){
-		dash_position = $(this).attr('id').lastIndexOf('-');
-		document_num = $(this).attr('id').substring(dash_position+1);
 
-		$.post( ajaxurl ,{
-			action:'bp_group_documents_increment_downloads',
-			document_id:document_num
-		},function(response){
-			alert(reposnse);
-		});
-
-	});
-
-	
 
 	//add new single categories in the group admin screen via ajax
 	$('#group-documents-group-admin-categories input[value=Add]').click(function(){

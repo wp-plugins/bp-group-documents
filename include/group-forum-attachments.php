@@ -37,14 +37,13 @@ add_filter('group_forum_post_text_before_save', 'bp_group_documents_forum_attach
 
 /**
  *
- * @global type $bp
  * @param type $topic_text
  * @return type
  * @version 1.2.2, stergatu 3/10/2013, sanitize_text_field
  * @since
  */
 function bp_group_documents_forum_attachments_topic_text($topic_text) {
-    global $bp;
+    $bp = buddypress();
 
     if (!empty($_FILES)) {
         $document = new BP_Group_Documents();
@@ -66,11 +65,11 @@ function bp_group_documents_forum_attachments_topic_text($topic_text) {
 
 /* Returns html that links to a group document
  */
-
 function bp_group_documents_forum_attachments_document_link($document) {
     $html = "<br /><a class='group-documents-title' id='group-document-link-{$document->id}' href='{$document->get_url()}' target='_blank'>{$document->name}";
-    if (get_option('bp_group_documents_display_file_size'))
-        $html .= " <span class='group-documents-filesize'>(" . get_file_size($document) . ")</span>";
+    if ( get_option( 'bp_group_documents_display_file_size' ) ) {
+	$html .= " <span class='group-documents-filesize'>(" . get_file_size( $document ) . ")</span>";
+    }
     $html .= "</a>";
 
     if (BP_GROUP_DOCUMENTS_SHOW_DESCRIPTIONS && $document->description) {

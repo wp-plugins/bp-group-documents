@@ -5,8 +5,8 @@
   Plugin URI: wordpress.org/plugins/bp-group-documents/
 
   Description: BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document.
-  Version: 1.9.1
-  Revision Date: January 16, 2015
+  Version: 1.9.2
+  Revision Date: March 9, 2015
   Requires at least: WP 3.5, BuddyPress 1.7
   Tested up to: 3.9.2, BuddyPress 2.0.1
   License:  GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
@@ -21,9 +21,9 @@
 
 //some constants that can be checked when extending this plugin
 define( 'BP_GROUP_DOCUMENTS_IS_INSTALLED', 1 );
-define( 'BP_GROUP_DOCUMENTS_VERSION', '1.8' );
+define( 'BP_GROUP_DOCUMENTS_VERSION', '1.9.2' );
 define( 'BP_GROUP_DOCUMENTS_DB_VERSION', '5' );
-define( 'BP_GROUP_DOCUMENTS_VALID_FILE_FORMATS', 'odt,rtf,txt,doc,docx,xls,xlsx,ppt,pps,pptx,pdf,jpg,jpeg,gif,png,zip,tar,gz' );
+define( 'BP_GROUP_DOCUMENTS_VALID_FILE_FORMATS', 'odt,ods,rtf,txt,doc,docx,xls,xlsx,ppt,pps,pptx,pdf,jpg,jpeg,gif,png,zip,tar,gz' );
 define( 'BP_GROUP_DOCUMENTS_ITEMS_PER_PAGE', 20 );
 define( 'BP_GROUP_DOCUMENTS_UPLOAD_PERMISSION', 'mods_decide' );
 define( 'BP_GROUP_DOCUMENTS_DISPLAY_ICONS', 1 );
@@ -110,7 +110,7 @@ register_activation_hook( __FILE__, 'bp_group_documents_is_installed' );
 
  */
 function bp_group_documents_install_upgrade() {
-    global $wpdb, $bp;
+    global $wpdb;
 
     $charset_collate = '';
     if ( ! empty( $wpdb->charset ) ) {
@@ -177,7 +177,7 @@ function bp_group_documents_tableCreate( $charset_collate ) {
  * @version 1.2.2, remove constants related to admin uploads
  */
 function bp_group_documents_set_constants() {
-    global $wpdb, $bp;
+    global $wpdb;
     if ( ! defined( 'BP_GROUP_DOCUMENTS_TABLE' ) )
 	define( 'BP_GROUP_DOCUMENTS_TABLE', $wpdb->base_prefix . 'bp_group_documents' );
 

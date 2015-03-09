@@ -61,7 +61,8 @@ add_filter( 'bp_group_documents_file_url', 'cac_filter_doc_url', 10, 3 );
  * @
  * @return type
  * @since 0.5
- * @version 1.9.1, 16/1/2015, add bp_group_documents_download_access filter
+ * @version 1.9.2, 9/3/2015, fix for download count
+ * v1.9.1, 16/1/2015, add bp_group_documents_download_access filter
  */
 function cac_catch_group_doc_request() {
     $error = false;
@@ -112,6 +113,7 @@ function cac_catch_group_doc_request() {
 	    clearstatcache();
 
 	    if ( file_exists( $doc_path ) ) {
+		$document->increment_download_count();
 		$mime_type = mime_content_type( $doc_path );
 		$doc_size = filesize( $doc_path );
 

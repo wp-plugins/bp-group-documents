@@ -1,11 +1,11 @@
 ===BP Group Documents  ===
-Contributors: lenasterg
+Contributors: lenasterg, NTS on cti.gr
 Tags: wpms, buddypress, group, document, plugin, file, media, storage, upload, widget
 Requires at least: WP 3.5, BuddyPress 1.7
-Tested up to: 3.9.2, BuddyPress 2.0.1
-Stable tag: 1.9.1 (Requires at least: WP 3.5, BuddyPress 1.7)
+Tested up to: 4.1, BuddyPress 2.0.1
+Stable tag: 1.9.2 (Requires at least: WP 3.5, BuddyPress 1.7)
 License: GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q4VCLDW4BFW6L
+
 
 BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document.
 
@@ -88,6 +88,14 @@ add_filter( 'bp_group_documents_download_access', 'bp_only_logged_in_can_downloa
 
 
 == Changelog ==
+= Version 1.9.2 (9/3/2015) =
+* Fix download count for non-login users
+* Fix warning caused by setcookie
+* Fix a typo
+* Add ods as default valid file extension
+
+
+
 = Version 1.9.1 (16/1/2015) =
 * Add link for "Add new document" on BP_Group_Documents_CurrentGroup_Widget
 * Add new filter bp_group_documents_download_access. Thanks to @kallekillen for the idea.
