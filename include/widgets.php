@@ -433,7 +433,8 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
 		 *
 		 * @param type $args
 		 * @param array $instance
-		 * @version 2, 24/4/2014
+ * @version 3, 6/4/2015 fix for hidden groups
+		 * v2, 24/4/2014
 		 */
 		function widget( $args, $instance ) {
 		    $bp = buddypress();
@@ -442,7 +443,7 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
 		    if ( $instance['group_id'] > 0 ) {
 			$group = $bp->groups->current_group;
 			// If the group  public, or the user is super_admin or the user is member of group
-			if ( ($group->status == 'public') || (is_super_admin()) || (groups_is_user_member( bp_loggedin_user_id(), $group_id )) ) {
+				if ( ($group->status == 'public') || (is_super_admin()) || (groups_is_user_member( bp_loggedin_user_id(), $instance['group_id'] )) ) {
 			    extract( $args );
 			    $title = apply_filters( 'widget_title', empty( $instance['title'] ) ? sprintf( __( 'Recent %s for the group', 'bp-group-documents' ), $this->bp_group_documents_name ) : sanitize_text_field( $instance['title'] )  );
 

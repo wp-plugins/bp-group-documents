@@ -5,10 +5,10 @@
   Plugin URI: wordpress.org/plugins/bp-group-documents/
 
   Description: BP Group Documents creates a page within each BuddyPress group to upload and any type of file or document.
-  Version: 1.9.2
-  Revision Date: March 9, 2015
+  Version: 1.9.3
+  Revision Date: April 6, 2015
   Requires at least: WP 3.5, BuddyPress 1.7
-  Tested up to: 3.9.2, BuddyPress 2.0.1
+  Tested up to: 4.1.1, BuddyPress 2.0.1
   License:  GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
   Author: <a href="http://lenasterg.wordpress.com">lenasterg</a>, since v. 0.4.3.3. with additional bug fixing and improvements by <a href="http://keeblesmith.com">Keeble Smith</a>. Original plugin author Peter Anselmo, Studio66.
 
