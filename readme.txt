@@ -89,7 +89,7 @@ add_filter( 'bp_group_documents_download_access', 'bp_only_logged_in_can_downloa
 
 == Changelog ==
 
-= Version 1.9.3 (6/4/2015)=
+= Version 1.9.3 (6/4/2015) =
 * Fix BP_Group_Documents_CurrentGroup_Widget for hidden groups
 * Updated Italian language file, thanks to Daniele Mezzetti
 
