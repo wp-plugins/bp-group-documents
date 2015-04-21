@@ -228,7 +228,8 @@ function bp_group_documents_admin() {
          * @param type $file
          * @return array
          * @since version 0.6
-         * @version 2, 3/9/2013, fix the BP_GROUP_DOCUMENTS_DIR
+         * @version 3, 21/4/2015 esc_url
+	 * v2, 3/9/2013, fix the BP_GROUP_DOCUMENTS_DIR
          * version 1, 4/6/2013 stergtu
          *
          */
@@ -236,8 +237,8 @@ function bp_group_documents_admin() {
             $this_plugin = BP_GROUP_DOCUMENTS_DIR . '/loader.php';
             if ($file == $this_plugin) {
                 return array_merge($links, array(
-                    'settings' => '<a href="' . add_query_arg(array('page' => 'bp-group-documents-settings'), bp_group_documents_find_admin_location()) . '">' . esc_html__('Settings', 'bp-group-documents') . '</a>',
-                ));
+                    'settings' => '<a href="' . esc_url( add_query_arg( array( 'page' => 'bp-group-documents-settings' ), bp_group_documents_find_admin_location() ) ) . '">' . esc_html__( 'Settings', 'bp-group-documents' ) . '</a>',
+	));
             }
 
             return $links;

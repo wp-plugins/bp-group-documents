@@ -158,18 +158,18 @@ class BP_Group_Documents_Newest_Widget extends WP_Widget {
 			echo '>' . stripslashes( $group->name ) . '</option>';
 		    }
 		    ?>
-	        </select></p>
-	    <?php
-	}
+	    	    		</select></p>
+			<?php
+		    }
 
 	if ( BP_GROUP_DOCUMENTS_FEATURED ) {
 	    ?>
-	    <p><label><?php printf( __( 'Show featured %s only', 'bp-group-documents' ), $this->bp_group_documents_name ); ?></label> <input type="checkbox" id="<?php echo $this->get_field_id( 'featured' ); ?>" name="<?php echo $this->get_field_name( 'featured' ); ?>" value="1" <?php checked( $featured ); ?>>
-	    </p>
-	<?php } ?>
-	<p><label><?php _e( 'Number of items to show:', 'bp-group-documents' ); ?></label> <input class="widefat" id="<?php echo $this->get_field_id( 'num_items' ); ?>" name="<?php echo $this->get_field_name( 'num_items' ); ?>" type="text" value="<?php echo absint( $num_items ); ?>" style="width: 30%" /></p>
-	<?php
-    }
+	    	    		<p><label><?php printf( __( 'Show featured %s only', 'bp-group-documents' ), $this->bp_group_documents_name ); ?></label> <input type="checkbox" id="<?php echo $this->get_field_id( 'featured' ); ?>" name="<?php echo $this->get_field_name( 'featured' ); ?>" value="1" <?php checked( $featured ); ?>>
+	    		</p>
+			<?php } ?>
+			<p><label><?php _e( 'Number of items to show:', 'bp-group-documents' ); ?></label> <input class="widefat" id="<?php echo $this->get_field_id( 'num_items' ); ?>" name="<?php echo $this->get_field_name( 'num_items' ); ?>" type="text" value="<?php echo absint( $num_items ); ?>" style="width: 30%" /></p>
+			<?php
+		    }
 
 }
 
@@ -182,7 +182,7 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
 
 	    function __construct() {
 		$bp = buddypress();
-	$nav_page_name = get_option( 'bp_group_documents_nav_page_name' );
+		$nav_page_name = get_option( 'bp_group_documents_nav_page_name' );
 		$this->bp_group_documents_name = mb_convert_case(  ! empty( $nav_page_name ) ? $nav_page_name : __( 'Documents', 'bp-group-documents' ), MB_CASE_LOWER );
 		parent::__construct(
 			'bp_group_documents_popular_widget', '(BP Group Documents) ' . sprintf( __( 'Popular Group %s', 'bp-group-documents' ), $this->bp_group_documents_name ), // Name
@@ -198,7 +198,7 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
 	    function widget( $args, $instance ) {
 		$bp = buddypress();
 
-	extract( $args );
+		extract( $args );
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? sprintf( __( 'Popular Group %s', 'bp-group-documents' ), $this->bp_group_documents_name ) : sanitize_text_field( $instance['title'] )  );
 
 		echo $before_widget . $before_title . $title . $after_title;
@@ -315,7 +315,7 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
 
 	    function __construct() {
 		$bp = buddypress();
-	$nav_page_name = get_option( 'bp_group_documents_nav_page_name' );
+		$nav_page_name = get_option( 'bp_group_documents_nav_page_name' );
 		$this->bp_group_documents_name = ! empty( $nav_page_name ) ? $nav_page_name : __( 'Documents', 'bp-group-documents' );
 		parent::__construct(
 			'bp_group_documents_usergroups_widget', '(BP Group Documents) ' . sprintf( __( '%s in your groups', 'bp-group-documents' ), $this->bp_group_documents_name ), // Name
@@ -330,7 +330,7 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
 
 	    function widget( $args, $instance ) {
 		$bp = buddypress();
-	//only show widget to logged in users
+		//only show widget to logged in users
 		if ( ! is_user_logged_in() )
 		    return;
 
@@ -416,7 +416,7 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
 
 		function __construct() {
 		    $bp = buddypress();
-	$nav_page_name = get_option( 'bp_group_documents_nav_page_name' );
+		    $nav_page_name = get_option( 'bp_group_documents_nav_page_name' );
 		    $this->bp_group_documents_name = ! empty( $nav_page_name ) ? $nav_page_name : __( 'Documents', 'bp-group-documents' );
 		    parent::__construct(
 			    'bp_group_documents_current_group_widget', '(BP Group Documents) ' . sprintf( __( '%s in this group', 'bp-group-documents' ), $this->bp_group_documents_name ), // Name
@@ -433,7 +433,7 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
 		 *
 		 * @param type $args
 		 * @param array $instance
- * @version 3, 6/4/2015 fix for hidden groups
+		 * @version 3, 6/4/2015 fix for hidden groups
 		 * v2, 24/4/2014
 		 */
 		function widget( $args, $instance ) {
@@ -443,7 +443,7 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
 		    if ( $instance['group_id'] > 0 ) {
 			$group = $bp->groups->current_group;
 			// If the group  public, or the user is super_admin or the user is member of group
-				if ( ($group->status == 'public') || (is_super_admin()) || (groups_is_user_member( bp_loggedin_user_id(), $instance['group_id'] )) ) {
+			if ( ($group->status == 'public') || (is_super_admin()) || (groups_is_user_member( bp_loggedin_user_id(), $instance['group_id'] )) ) {
 			    extract( $args );
 			    $title = apply_filters( 'widget_title', empty( $instance['title'] ) ? sprintf( __( 'Recent %s for the group', 'bp-group-documents' ), $this->bp_group_documents_name ) : sanitize_text_field( $instance['title'] )  );
 
@@ -479,15 +479,15 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
 					    } else {
 						echo '<div class="widget-error">' . sprintf( __( 'There are no %s to display.', 'bp-group-documents' ), $this->bp_group_documents_name ) . '</div></p>';
 					    }
-		if ( is_user_logged_in() ) {
-		    if ( BP_Group_Documents::current_user_can( 'add', $instance['group_id'] ) ) {
-						$url =  bp_get_group_permalink( $bp->groups->current_group ) . BP_GROUP_DOCUMENTS_SLUG . '/add';
-		    ?>
-		    		    							<div class="generic-button group-button public"><a href="<?php echo $url; ?>" class="generic-button"><?php _e( "Add New", 'buddypress' ); ?></a></div>
-									    <?php
+					    if ( is_user_logged_in() ) {
+						if ( BP_Group_Documents::current_user_can( 'add', $instance['group_id'] ) ) {
+						    $url = bp_get_group_permalink( $bp->groups->current_group ) . BP_GROUP_DOCUMENTS_SLUG . '/add';
+						    ?>
+						    <div class="generic-button group-button public"><a href="<?php echo $url; ?>" class="generic-button"><?php _e( "Add New", 'buddypress' ); ?></a></div>
+						    <?php
+						}
 					    }
-		}
-		echo '<div class="view-all"><a href="' . bp_get_group_permalink( $bp->groups->current_group ) . BP_GROUP_DOCUMENTS_SLUG . '#object-nav">' . __( "View all", 'bp-group-documents' ) . '</a></div>';
+					    echo '<div class="view-all"><a href="' . bp_get_group_permalink( $bp->groups->current_group ) . BP_GROUP_DOCUMENTS_SLUG . '#object-nav">' . __( "View all", 'bp-group-documents' ) . '</a></div>';
 					    echo $after_widget;
 					}
 				    }
@@ -513,13 +513,13 @@ class BP_Group_Documents_Popular_Widget extends WP_Widget {
 				    $num_items = absint( $instance['num_items'] );
 				    ?>
 
-	<p><label><?php _e( 'Title:', 'bp-group-documents' ); ?></label><input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" /></p>
-		<?php if ( BP_GROUP_DOCUMENTS_FEATURED ) { ?>
-	    	<p>
-	    	    <label><?php printf( __( 'Show featured %s only', 'bp-group-documents' ), $this->bp_group_documents_name ); ?></label>
-	    	    <input type="checkbox" id="<?php echo $this->get_field_id( 'featured' ); ?>" name="<?php echo $this->get_field_name( 'featured' ); ?>" value="1" <?php checked( $featured ); ?>>
-	    	</p>
-		<?php } ?>
+					    <p><label><?php _e( 'Title:', 'bp-group-documents' ); ?></label><input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" /></p>
+				    <?php if ( BP_GROUP_DOCUMENTS_FEATURED ) { ?>
+	    			    <p>
+	    				<label><?php printf( __( 'Show featured %s only', 'bp-group-documents' ), $this->bp_group_documents_name ); ?></label>
+	    				<input type="checkbox" id="<?php echo $this->get_field_id( 'featured' ); ?>" name="<?php echo $this->get_field_name( 'featured' ); ?>" value="1" <?php checked( $featured ); ?>>
+	    			    </p>
+				    <?php } ?>
 
 				<p><label><?php _e( 'Number of items to show:', 'bp-group-documents' ); ?></label> <input class="widefat" id="<?php echo $this->get_field_id( 'num_items' ); ?>" name="<?php echo $this->get_field_name( 'num_items' ); ?>" type="text" value="<?php echo absint( $num_items ); ?>" style="width: 30%" /></p>
 			<?php

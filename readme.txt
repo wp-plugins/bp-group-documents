@@ -2,8 +2,8 @@
 Contributors: lenasterg, NTS on cti.gr
 Tags: wpms, buddypress, group, document, plugin, file, media, storage, upload, widget
 Requires at least: WP 3.5, BuddyPress 1.7
-Tested up to: 4.1.1 BuddyPress 2.0.1
-Stable tag: 1.9.3 (Requires at least: WP 3.5, BuddyPress 1.7)
+Tested up to: 4.1.1 BuddyPress 2.2
+Stable tag: 1.9.3.1 (Requires at least: WP 3.5, BuddyPress 1.7)
 License: GNU General Public License 3.0 or newer (GPL) http://www.gnu.org/licenses/gpl.html
 
 
@@ -88,8 +88,10 @@ add_filter( 'bp_group_documents_download_access', 'bp_only_logged_in_can_downloa
 
 
 == Changelog ==
+= Version 1.9.3.1 (21/4/2015)=
+* Minor fix
 
-= Version 1.9.3 (6/4/2015) =
+= Version 1.9.3 (6/4/2015)=
 * Fix BP_Group_Documents_CurrentGroup_Widget for hidden groups
 * Updated Italian language file, thanks to Daniele Mezzetti
 
@@ -142,6 +144,7 @@ add_filter( 'bp_group_documents_download_access', 'bp_only_logged_in_can_downloa
 * Fix wrong placed error messagew
 * Remove depreceted functions
 * Remove administrators FTP ability, in favor of security
+
 
 
 = Version 1.2.1 (September 17, 2013) =
