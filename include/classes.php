@@ -554,6 +554,7 @@ class BP_Group_Documents {
             'mov' => 'film.png',
             'mdb' => 'page_white_database.png',
             'mp3' => 'music.png',
+			'mp4' => 'mp4.png',
             'mpeg' => 'film.png',
             'msp' => 'page_white_paintbrush',
             'ods' => 'application_view_columns.png',
