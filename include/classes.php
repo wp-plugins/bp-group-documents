@@ -567,6 +567,7 @@ class BP_Group_Documents {
             'ppt' => 'page_white_powerpoint.png',
             'pps' => 'page_white_powerpoint.png',
             'pptx' => 'page_white_powerpoint.png',
+			'ppsx' => 'ppsx.gif',
             'ps' => 'page_white_paintbrush.png',
             'rb' => 'page_white_ruby.png',
             'rtf' => 'page_white_text.png',
