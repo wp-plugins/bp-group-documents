@@ -91,6 +91,7 @@ add_filter( 'bp_group_documents_download_access', 'bp_only_logged_in_can_downloa
 = Version 1.9.4 (5/6/2015)=
 * Fix for widgets, pros @thebrandonallen
 * Add icon for ppsx
+* Fix for Strict Standards setup
 
 = Version 1.9.3.1 (21/4/2015)=
 * Minor fix

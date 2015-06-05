@@ -6,14 +6,6 @@ if ( ! defined( 'ABSPATH' ) )
 /**
  * @author Stergatu Eleni
  * @since  0.5
- * @version 1.5 moved textdomain to loader.php
-
- * changelog
- * v1.3 25/10/2013, fix the Fatal error: Call to undefined function get_home_path()
- *  v4 17/9/2013, fix the  http://wordpress.org/support/topic/error-message-if-you-edit-groups?replies=1 bug
- * v3, 31/7/2013, change visibility to private
- * v2, 21/5/2013 fixed some bugs
- * v1, 7/3/2013
  */
 if ( class_exists( 'BP_Group_Extension' ) ) : // Recommended, to prevent problems during upgrade or when Groups are disabled
 
@@ -56,8 +48,8 @@ if ( class_exists( 'BP_Group_Extension' ) ) : // Recommended, to prevent problem
 	 * The content of the BP group documents tab of the group creation process
 	 *
 	 */
-	function create_screen() {
-	     $bp = buddypress();
+	function create_screen( $group_id = null ) {
+	    $bp = buddypress();
 	    if ( ! bp_is_group_creation_step( $this->slug ) ) {
 		return false;
 	    }
@@ -70,7 +62,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) : // Recommended, to prevent problem
 	 * @version 1, 29/4/2013, stergatu
 	 * @since 0.5
 	 */
-	function create_screen_save() {
+	function create_screen_save( $group_id = null ) {
 	    $bp = buddypress();
 
 	    check_admin_referer( 'groups_create_save_' . $this->slug );
@@ -101,7 +93,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) : // Recommended, to prevent problem
 	 * @version 4 18/10/2013, fix the $action_link
 	 * v3, 21/5/2013, fix the edit category
 	 */
-	function edit_screen() {
+	function edit_screen( $group_id = null ) {
 	    $bp = buddypress();
 	    if ( ! bp_is_group_admin_screen( $this->slug ) ) {
 		return false;
@@ -215,7 +207,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) : // Recommended, to prevent problem
 	 * v2, 21/5/2013, fix the edit and delete category bug, Stergatu Eleni
 	 * @since 0.5
 	 */
-	function edit_screen_save() {
+	function edit_screen_save( $group_id = null ) {
 	    $bp = buddypress();
 	    do_action( 'bp_group_documents_group_admin_save' );
 	    $message = false;
@@ -284,7 +276,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) : // Recommended, to prevent problem
 	 * @since version 0.5
 	 * @author Stergatu
 	 */
-	function display() {
+	function display( $group_id = null ) {
 	    do_action( 'bp_group_documents_display' );
 	    add_action( 'bp_template_content_header', 'bp_group_documents_display_header' );
 	    add_action( 'bp_template_title', 'bp_group_documents_display_title' );
@@ -297,7 +289,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) : // Recommended, to prevent problem
 	 * @version 1, 30/4/2013, stergatu
 	 *
 	 */
-	function admin_screen( $group_id ) {
+	function admin_screen( $group_id = null ) {
 	    $this->edit_create_markup( $group_id );
 	}
 
@@ -306,7 +298,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) : // Recommended, to prevent problem
 	 * @version 2, 17/9/2013, stergatu
 	 * @param type $group_id
 	 */
-	function admin_screen_save( $group_id ) {
+	function admin_screen_save( $group_id = null ) {
 	    // Grab your data out of the $_POST global and save as necessary
 	    //Update permissions
 	    $valid_permissions = array( 'members', 'mods_only' );
@@ -369,7 +361,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) : // Recommended, to prevent problem
 	require ( dirname( __FILE__ ) . '/include/activity.php' );
 	require ( dirname( __FILE__ ) . '/include/templatetags.php' );
 	require ( dirname( __FILE__ ) . '/include/filters.php' );
-	
+
 
 //only get the forum extension if it's been specified by the admin
 	if ( get_option( 'bp_group_documents_forum_attachments' ) ) {
